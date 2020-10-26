@@ -6,7 +6,7 @@ This use case describes the creation, reading, updating and deleting of flashcar
 ## 2. Flow of Events
 ### Activity Diagram
 ![activity diagram part1](AC_part1.PNG)
-![activity diagram part2](AC_part2.PNG)
+![activity diagram part2](AC_part2.png)
 
 ### 2.1 Basic flow
 In general a user will create a flashcard and list all of his journals. He will maybe edit it later and from time to time he will delete journals.
