@@ -9,7 +9,7 @@ This use case describes the creation, reading, updating and deleting of flashcar
 ![activity diagram part2](AC_part2.PNG)
 
 ### 2.1 Basic flow
-In general a user will create a journal and list all of his journals. He will maybe edit it later and from time to time he will delete journals.
+In general a user will create a flashcard and list all of his journals. He will maybe edit it later and from time to time he will delete journals.
 
 ### 2.2 Creation
 The creation of a new Flashcard. The user will be asked to enter a question, and 4 answers where only one is correct.
