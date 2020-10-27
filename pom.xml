@@ -7,7 +7,14 @@
     <groupId>oom-parent</groupId>
     <artifactId>out-of-memory</artifactId>
     <version>${revision}</version>
-    <properties><revision>0.0.1-SNAPSHOT</revision></properties>
+
+    <properties>
+        <revision>0.0.1-SNAPSHOT</revision>
+    </properties>
     <packaging>pom</packaging>
 
+    <modules>
+        <module>oom-backend</module>
+        <module>oom-frontend</module>
+    </modules>
 </project>
