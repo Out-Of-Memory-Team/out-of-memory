@@ -5,12 +5,12 @@ Feature: Manage Deck
   Scenario: Create new deck with required information
     Given I expect the user to enter a title, a description and tags for the new deck
     When The 'Save'-Button was clicked
-    Then The Tooltip "Successfully added new flashcard to deck is displayed
+    Then The 'View'-Page for the created deck is shown
 
   Scenario: Create new deck without required information
     Given I do not expect any input from the user
     When The 'Save'-Button was clicked
-    Then The Tooltip "Failed to add new flashcard to deck is displayed
+    Then The Tooltip "Failed to create new deck" is displayed
 
   Scenario: View a specific deck
     Given I expect the user to have at least one deck created
@@ -39,4 +39,4 @@ Feature: Manage Deck
     And I expect the user to view or edit a specific deck
     And I expect the user to have clicked on the 'Delete'-Icon
     When Clicked on 'Delete'-Button
-    Then The 'Delete Deck'-Dialog should disappear and the should be deleted
+    Then The 'Delete Deck'-Dialog should disappear and this deck should be deleted
