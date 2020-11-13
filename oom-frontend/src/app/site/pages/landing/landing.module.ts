@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {LandingGuestComponent} from './landing-guest/landing-guest.component';
 import {LandingUserComponent} from './landing-user/landing-user.component';
+import {RouterModule} from '@angular/router';
 
 
 @NgModule({
@@ -10,7 +11,8 @@ import {LandingUserComponent} from './landing-user/landing-user.component';
     LandingUserComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ]
 })
 export class LandingModule { }
