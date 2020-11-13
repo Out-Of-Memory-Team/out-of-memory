@@ -5,16 +5,26 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {ClarityModule} from '@clr/angular';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {LayoutModule} from './site/layout/layout.module';
+import {LandingModule} from './site/pages/landing/landing.module';
+import {DeckOverviewComponent} from './site/pages/decks/deck-overview/deck-overview.component';
+import {DeckDetailComponent} from './site/pages/decks/deck-detail/deck-detail.component';
+import {DeckEditorComponent} from './site/pages/decks/deck-editor/deck-editor.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DeckOverviewComponent,
+    DeckDetailComponent,
+    DeckEditorComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ClarityModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    LayoutModule,
+    LandingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
