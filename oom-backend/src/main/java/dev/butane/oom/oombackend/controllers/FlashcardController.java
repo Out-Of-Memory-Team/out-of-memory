@@ -42,4 +42,10 @@ public class FlashcardController {
     public void updateFlashcard(@RequestBody Flashcard card) {
         flashcardRepository.save(card);
     }
+
+    // Delete a card
+    @DeleteMapping("/cards/{id}")
+    public void deleteFlashcard(@PathVariable long id) {
+        flashcardRepository.deleteById(id);
+    }
 }
