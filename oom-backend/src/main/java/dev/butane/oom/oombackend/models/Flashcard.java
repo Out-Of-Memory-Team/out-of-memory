@@ -8,6 +8,7 @@ import javax.persistence.Id;
 @Entity
 public class Flashcard {
 
+    // TODO: Instead of cardId, use UUID
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long cardId;

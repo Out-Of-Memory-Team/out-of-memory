@@ -32,13 +32,13 @@ public class FlashcardController {
     }
 
     // Create a card TODO: of specific user
-    @PostMapping("/createCard")
+    @PostMapping("/cards")
     public void createFlashcard(@RequestBody Flashcard card) {
         flashcardRepository.save(card);
     }
 
     // Update a card TODO: of specific user
-    @PutMapping("/updateCard")
+    @PutMapping("/cards/{id}")
     public void updateFlashcard(@RequestBody Flashcard card) {
         flashcardRepository.save(card);
     }
