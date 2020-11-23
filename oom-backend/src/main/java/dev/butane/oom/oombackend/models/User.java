@@ -1,5 +1,7 @@
 package dev.butane.oom.oombackend.models;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,17 +20,15 @@ public class User {
     private final String email;
     private final String firstName;
     private final String lastName;
-    
-    private final String password;
 
-    public Flashcard(String username, String firstName, String lastName, String email) {
+    public User(String username, String firstName, String lastName, String email) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
     }
 
-    public Flashcard() {
+    public User() {
         this.username = "";
         this.firstName = "";
         this.lastName = "";
@@ -39,24 +39,20 @@ public class User {
         return userId;
     }
 
-    public long getUsername() {
+    public String getUsername() {
         return username;
     }
 
-    public long getFirstName() {
+    public String getFirstName() {
         return firstName;
     }
 
-    public long getLastName() {
+    public String getLastName() {
         return lastName;
     }
 
-    public long getEmail() {
+    public String getEmail() {
         return email;
-    }
-
-    public long getPassword() {
-        return password;
     }
 
     public String toString() {

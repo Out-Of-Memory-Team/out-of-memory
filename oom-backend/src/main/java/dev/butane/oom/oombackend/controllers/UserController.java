@@ -5,7 +5,6 @@ import dev.butane.oom.oombackend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -20,14 +19,14 @@ public class UserController {
 
     // Create an user
     @PostMapping("/users")
-    public void updateUser(@RequestBody User user) {
+    public void createUser(@RequestBody User user) {
         userRepository.save(user);
     }
 
     // Reads user by Id
     @GetMapping("/users/{id}")
-    public User getUser(@PathVariable long id) {
-        return flashcardRepository.findById(id);
+    public Optional<User> getUser(@PathVariable long id) {
+        return userRepository.findById(id);
     }
 
     // Update an user
@@ -38,7 +37,5 @@ public class UserController {
     
     // Deletes user by Id
     @DeleteMapping("/users/{id}")
-    public User getUser(@PathVariable long id) {
-        flashcardRepository.deleteById(id);
-    }
+    public void deleteUser(@PathVariable long id) { userRepository.deleteById(id); }
 }
