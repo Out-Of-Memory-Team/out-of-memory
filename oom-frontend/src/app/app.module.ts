@@ -10,6 +10,7 @@ import {LandingModule} from './site/pages/landing/landing.module';
 import {DeckOverviewComponent} from './site/pages/decks/deck-overview/deck-overview.component';
 import {DeckDetailComponent} from './site/pages/decks/deck-detail/deck-detail.component';
 import {DeckEditorComponent} from './site/pages/decks/deck-editor/deck-editor.component';
+import {PipesModule} from "./shared/pipes/pipes.module";
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {DeckEditorComponent} from './site/pages/decks/deck-editor/deck-editor.co
     ClarityModule,
     BrowserAnimationsModule,
     LayoutModule,
-    LandingModule
+    LandingModule,
+    PipesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

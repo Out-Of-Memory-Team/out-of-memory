@@ -1,1 +1,32 @@
-<p>deck-overview works!</p>
+<div class="page-shell">
+  <div class="card">
+    <div class="card-block">
+      <div class="card-title">
+        Decks
+      </div>
+      <div class="card-text">
+        Some description about this page. TBD
+      </div>
+    </div>
+  </div>
+  <clr-datagrid>
+    <clr-dg-column>Title</clr-dg-column>
+    <clr-dg-column>Size</clr-dg-column>
+    <clr-dg-column>Tags</clr-dg-column>
+
+    <clr-dg-row *clrDgItems="let deck of (deckBackend.getDecks() | async)" [clrDgItem]="deck" [routerLink]="deck.deckId">
+      <clr-dg-cell class="entry-cell">{{deck.title}}</clr-dg-cell>
+      <clr-dg-cell class="entry-cell">{{deck.flashcards | size}} card(s)</clr-dg-cell>
+      <clr-dg-cell>
+        <span *ngFor="let tag of deck.tags" class="label label-purple">{{tag}}</span>
+      </clr-dg-cell>
+    </clr-dg-row>
+
+    <clr-dg-footer>
+      <clr-dg-pagination #pagination [clrDgPageSize]="10">
+        <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Decks per page</clr-dg-page-size>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of {{pagination.totalItems}} deck(s)
+      </clr-dg-pagination>
+    </clr-dg-footer>
+  </clr-datagrid>
+</div>

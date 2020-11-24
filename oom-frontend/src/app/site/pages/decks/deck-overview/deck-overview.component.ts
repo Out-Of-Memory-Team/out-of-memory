@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {DecksBackendService} from "../../../../core/decks/decks-backend.service";
 
 @Component({
   selector: 'page-deck-overview',
@@ -7,7 +8,7 @@ import {Component, OnInit} from '@angular/core';
 })
 export class DeckOverviewComponent implements OnInit {
 
-  constructor() { }
+  constructor(public deckBackend: DecksBackendService) { }
 
   ngOnInit(): void {
   }
