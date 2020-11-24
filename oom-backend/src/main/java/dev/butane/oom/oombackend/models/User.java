@@ -3,16 +3,15 @@ package dev.butane.oom.oombackend.models;
 import com.sun.istack.NotNull;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.UUID;
 
 @Entity
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long userId;
+    @NotNull
+    private String userId;
 
     @NotNull
     private final String username;
@@ -22,6 +21,7 @@ public class User {
     private final String lastName;
 
     public User(String username, String firstName, String lastName, String email) {
+        this.userId = UUID.randomUUID().toString();
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -35,7 +35,7 @@ public class User {
         this.email = "";
     }
 
-    public long getUserId() {
+    public String getUserId() {
         return userId;
     }
 

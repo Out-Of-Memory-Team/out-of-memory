@@ -10,9 +10,8 @@ import java.util.UUID;
 public class Deck {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
-    private UUID deckId;
+    private String deckId;
     @NotNull
     private String title;
     @NotNull
@@ -29,7 +28,7 @@ public class Deck {
     private List<Tag> tags;
 
     public Deck(String title, String description, Visibility visibility, String maintainer, List<User> collaborators, List<Flashcard> flashcards, List<Tag> tags) {
-        this.deckId = UUID.randomUUID();
+        this.deckId = UUID.randomUUID().toString();
         this.title = title;
         this.description = description;
         this.visibility = visibility;
@@ -50,7 +49,7 @@ public class Deck {
     }
 
     //Getter
-    public UUID getDeckId() { return deckId; }
+    public String getDeckId() { return deckId; }
 
     public String getTitle() { return title; }
 
