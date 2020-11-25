@@ -8,8 +8,7 @@ export class Deck {
   title: string;
   description: string;
   visibility: Visibility;
-  maintainer: User[];
-
+  maintainer: User;
   collaborators: User[];
   flashcards: Flashcard[];
   tags: string[];

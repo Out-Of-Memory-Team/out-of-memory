@@ -11,6 +11,8 @@ import {DeckOverviewComponent} from './site/pages/decks/deck-overview/deck-overv
 import {DeckDetailComponent} from './site/pages/decks/deck-detail/deck-detail.component';
 import {DeckEditorComponent} from './site/pages/decks/deck-editor/deck-editor.component';
 import {PipesModule} from "./shared/pipes/pipes.module";
+import {QuillModule} from "ngx-quill";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -24,9 +26,11 @@ import {PipesModule} from "./shared/pipes/pipes.module";
     AppRoutingModule,
     ClarityModule,
     BrowserAnimationsModule,
+    QuillModule.forRoot(),
     LayoutModule,
     LandingModule,
-    PipesModule
+    PipesModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

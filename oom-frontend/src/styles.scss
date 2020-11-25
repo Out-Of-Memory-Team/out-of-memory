@@ -1,8 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 
+.padding-minimal {
+  padding: 1rem !important;
+}
+
 .padding-vertical {
   padding-top: 3rem !important;
   padding-bottom: 3rem !important;
+}
+
+.padding-vertical-small {
+  padding-top: 1.6rem !important;
+  padding-bottom: 1.6rem !important;
+}
+
+.padding-bottom-small {
+  padding-bottom: 1.6rem !important;
 }
 
 .padding-horizontal {
@@ -13,6 +26,26 @@
 .padding-horizontal-small {
   padding-left: 1.6rem !important;
   padding-right: 1.6rem !important;
+}
+
+.margin-top-small {
+  margin-top: 1.6rem !important;
+}
+
+.margin-right-small {
+  margin-right: 1.6rem !important;
+}
+
+.margin-left-small {
+  margin-left: 1.6rem !important;
+}
+
+.no-margin {
+  margin: 0 !important;
+}
+
+.full-height {
+  height: 100%;
 }
 
 .page-shell {
