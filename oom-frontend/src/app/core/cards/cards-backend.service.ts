@@ -35,4 +35,26 @@ export class CardsBackendService {
   getCard(id: string): Observable<Flashcard> {
     return of(this.flashcards[0]);
   }
+
+  getCards(): Flashcard[] {
+    return this.flashcards;
+  }
+
+  updateCard(newCard: Flashcard): boolean {
+    let index = this.flashcards.findIndex(card => card.cardId === newCard.cardId);
+    if (index > -1) {
+      this.flashcards[index] = newCard;
+      return true;
+    }
+    return false;
+  }
+
+  deleteCard(id: string): boolean {
+    let index = this.flashcards.findIndex(card => card.cardId === id);
+    if (index > -1) {
+      this.flashcards.splice(index, 1);
+      return true;
+    }
+    return false;
+  }
 }

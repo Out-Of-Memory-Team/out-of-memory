@@ -47,7 +47,7 @@
           <button type="button" class="btn btn-link btn-icon no-margin" aria-label="home" [routerLink]="'/cards/'+card.cardId">
             <clr-icon shape="pencil" class="is-solid"></clr-icon>
           </button>
-          <button type="button" class="btn btn-link btn-icon no-margin" aria-label="home">
+          <button type="button" class="btn btn-link btn-icon no-margin" aria-label="home" (click)="deleteCard(card.cardId)">
             <clr-icon shape="trash" class="is-solid"></clr-icon>
           </button>
           <button type="button" class="btn btn-link btn-icon no-margin" aria-label="home">
