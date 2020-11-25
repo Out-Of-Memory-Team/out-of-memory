@@ -13,6 +13,7 @@ import {DeckEditorComponent} from './site/pages/decks/deck-editor/deck-editor.co
 import {PipesModule} from "./shared/pipes/pipes.module";
 import {QuillModule} from "ngx-quill";
 import {FormsModule} from "@angular/forms";
+import {ToastrModule} from "ngx-toastr";
 
 @NgModule({
   declarations: [
@@ -27,6 +28,11 @@ import {FormsModule} from "@angular/forms";
     ClarityModule,
     BrowserAnimationsModule,
     QuillModule.forRoot(),
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right',
+      autoDismiss: true,
+      progressBar: true
+    }),
     LayoutModule,
     LandingModule,
     PipesModule,

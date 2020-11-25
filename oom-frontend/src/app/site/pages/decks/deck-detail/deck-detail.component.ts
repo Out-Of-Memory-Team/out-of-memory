@@ -5,6 +5,7 @@ import {ActivatedRoute} from "@angular/router";
 import {take} from "rxjs/operators";
 import {Subscription} from "rxjs";
 import {CardsBackendService} from "../../../../core/cards/cards-backend.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'page-deck-detail',
@@ -18,7 +19,7 @@ export class DeckDetailComponent implements OnInit, OnDestroy {
   id: string;
   deck: Deck;
 
-  constructor(private route: ActivatedRoute, private deckBackend: DecksBackendService, private cardBackend: CardsBackendService) { }
+  constructor(private route: ActivatedRoute, private toastr: ToastrService, private deckBackend: DecksBackendService, private cardBackend: CardsBackendService) { }
 
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe(params => {
@@ -33,9 +34,9 @@ export class DeckDetailComponent implements OnInit, OnDestroy {
 
   deleteCard(id: string): void {
     if(this.cardBackend.deleteCard(id)) {
-      console.log("card delete successful!"); // TODO: Alert
+      this.toastr.success("Flashcard deleted", "Success!")
     } else {
-      console.log("card delete failed!"); // TODO: Alert
+      this.toastr.error("Flashcard could not be deleted", "Failed!")
     }
   }
 }
