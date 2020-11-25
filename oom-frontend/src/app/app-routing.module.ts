@@ -5,6 +5,7 @@ import {LandingGuestComponent} from './site/pages/landing/landing-guest/landing-
 const routes: Routes = [
   { path: 'auth', loadChildren: () => import('./site/pages/auth/auth.module').then(m => m.AuthModule) },
   { path: 'decks', loadChildren: () => import('./site/pages/decks/decks.module').then(m => m.DecksModule) },
+  { path: 'cards', loadChildren: () => import('./site/pages/cards/cards.module').then(m => m.CardsModule) },
   { path: '', component: LandingGuestComponent}
   ];
 

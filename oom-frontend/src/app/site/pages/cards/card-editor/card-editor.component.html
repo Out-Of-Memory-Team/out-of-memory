@@ -1,0 +1,45 @@
+<div class="page-shell">
+
+  <div class="card">
+    <div class="card-block">
+      <div class="card-title">
+        Flashcard Editor
+      </div>
+      <div class="card-text">
+        Some description about this page. TBD
+      </div>
+    </div>
+  </div>
+
+  <div class="padding-minimal">
+    <div class="clr-row">
+      <div class="clr-col">
+        <div>
+          <quill-editor [format]="'text'" [modules]="modules" [styles]="{ height: '250px' }" [sanitize]="true" [ngModel]="card.front" class="margin-right-small"></quill-editor>
+        </div>
+      </div>
+      <div class="clr-col">
+        <div>
+          <quill-editor [format]="'text'" [modules]="modules" [styles]="{ height: '250px' }" [sanitize]="true" [ngModel]="card.back" class="margin-right-small"></quill-editor>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card no-margin">
+    <div class="card-block">
+      <div class="clr-row">
+        <div class="clr-col-12">
+          <span class="p4">Deck</span>
+          <clr-datalist-container class="no-margin">
+            <input clrDatalistInput placeholder="Select deck..." name="Deck" class="no-padding" />
+            <datalist>
+              <option *ngFor="let deck of decks" [ngValue]="deck.deckId">{{deck.title}}</option>
+            </datalist>
+          </clr-datalist-container>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
