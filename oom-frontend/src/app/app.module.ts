@@ -14,6 +14,7 @@ import {PipesModule} from "./shared/pipes/pipes.module";
 import {QuillModule} from "ngx-quill";
 import {FormsModule} from "@angular/forms";
 import {ToastrModule} from "ngx-toastr";
+import {TagsModule} from "./shared/modules/tags/tags.module";
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {ToastrModule} from "ngx-toastr";
     LayoutModule,
     LandingModule,
     PipesModule,
-    FormsModule
+    FormsModule,
+    TagsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

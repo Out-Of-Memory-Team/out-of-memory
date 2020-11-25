@@ -3,6 +3,9 @@
     <div class="card-block">
       <div class="card-title">
         {{deck.title}}
+        <button type="button" class="btn btn-link btn-icon no-margin" aria-label="home" [routerLink]="'edit'">
+          <clr-icon shape="pencil" class="is-solid"></clr-icon>
+        </button>
       </div>
       <div class="card-text">
         {{deck.description || 'no description'}}
