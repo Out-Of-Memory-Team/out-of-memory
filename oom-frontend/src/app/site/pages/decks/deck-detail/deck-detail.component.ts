@@ -6,6 +6,8 @@ import {take} from "rxjs/operators";
 import {Subscription} from "rxjs";
 import {CardsBackendService} from "../../../../core/cards/cards-backend.service";
 import {ToastrService} from "ngx-toastr";
+import {DialogService} from "../../../../core/dialog/dialog.service";
+import {DialogType} from "../../../../core/dialog/dialog-data/dialog-type.enum";
 
 @Component({
   selector: 'page-deck-detail',
@@ -19,7 +21,13 @@ export class DeckDetailComponent implements OnInit, OnDestroy {
   id: string;
   deck: Deck;
 
-  constructor(private route: ActivatedRoute, private toastr: ToastrService, private deckBackend: DecksBackendService, private cardBackend: CardsBackendService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private toastr: ToastrService,
+    public dialog: DialogService,
+    private deckBackend: DecksBackendService,
+    private cardBackend: CardsBackendService
+  ) { }
 
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe(params => {
@@ -33,10 +41,24 @@ export class DeckDetailComponent implements OnInit, OnDestroy {
   }
 
   deleteCard(id: string): void {
-    if(this.cardBackend.deleteCard(id)) {
-      this.toastr.success("Flashcard deleted", "Success!")
-    } else {
-      this.toastr.error("Flashcard could not be deleted", "Failed!")
-    }
+    const res = this.dialog.open({
+      data: {
+        type: DialogType.WARNING,
+        title: 'Delete Flashcard',
+        message: 'Are you sure about deleting the flashcard?',
+        submitMessage: 'Delete'
+      },
+    });
+
+    res.afterClosed.pipe(take(1)).subscribe(cause => {
+      if(cause !== 'submit')
+        return;
+
+      if(this.cardBackend.deleteCard(id)) {
+        this.toastr.success("Flashcard deleted.", "Success!")
+      } else {
+        this.toastr.error("Flashcard could not be deleted.", "Failed!")
+      }
+    });
   }
 }

@@ -1,0 +1,24 @@
+<clr-modal clrModalOpen="true" [clrModalClosable]="false">
+  <h3 class="modal-title">
+    <ng-container [ngSwitch]="config.data.type || dialogType.INFO" class="dialog-title-item">
+      <clr-icon *ngSwitchCase="dialogType.INFO" shape="info-standard" size="24"></clr-icon>
+      <clr-icon *ngSwitchCase="dialogType.SUCCESS" shape="check" size="24"></clr-icon>
+      <clr-icon *ngSwitchCase="dialogType.WARNING" shape="warning-standard" size="24"></clr-icon>
+      <clr-icon *ngSwitchCase="dialogType.ALERT" shape="error-standard" size="24"></clr-icon>
+    </ng-container>
+    <span class="dialog-title-text dialog-title-item">
+      {{config.data.title || 'Confirm Action'}}
+    </span>
+  </h3>
+  <div class="modal-body">
+    {{config.data.message || 'Are you sure to continue with this action?'}}
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="onCancel()">
+      {{config.data.cancelMessage || 'Cancel'}}
+    </button>
+    <button type="button" class="btn" [ngClass]="'btn-'+(config.data.type || dialogType.INFO)" (click)="onSubmit()">
+      {{config.data.submitMessage || 'Submit'}}
+    </button>
+  </div>
+</clr-modal>

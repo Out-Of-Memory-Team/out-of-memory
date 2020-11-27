@@ -15,6 +15,7 @@ import {QuillModule} from "ngx-quill";
 import {FormsModule} from "@angular/forms";
 import {ToastrModule} from "ngx-toastr";
 import {TagsModule} from "./shared/modules/tags/tags.module";
+import {DialogModule} from "./core/dialog/dialog.module";
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import {TagsModule} from "./shared/modules/tags/tags.module";
       autoDismiss: true,
       progressBar: true
     }),
+    DialogModule,
     LayoutModule,
     LandingModule,
     PipesModule,
