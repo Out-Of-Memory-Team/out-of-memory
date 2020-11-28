@@ -2,15 +2,14 @@ package dev.butane.oom.oombackend.controllers;
 
 import dev.butane.oom.oombackend.models.User;
 import dev.butane.oom.oombackend.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 public class UserController {
 
-    @Autowired
     private final UserRepository userRepository;
 
     public UserController(UserRepository userRepository) {
@@ -25,7 +24,7 @@ public class UserController {
 
     // Reads user by Id
     @GetMapping("/users/{id}")
-    public Optional<User> getUser(@PathVariable long id) {
+    public Optional<User> getUser(@PathVariable UUID id) {
         return userRepository.findById(id);
     }
 
@@ -37,5 +36,5 @@ public class UserController {
     
     // Deletes user by Id
     @DeleteMapping("/users/{id}")
-    public void deleteUser(@PathVariable long id) { userRepository.deleteById(id); }
+    public void deleteUser(@PathVariable UUID id) { userRepository.deleteById(id); }
 }

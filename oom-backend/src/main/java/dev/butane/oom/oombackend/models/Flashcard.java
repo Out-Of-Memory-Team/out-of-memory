@@ -1,18 +1,23 @@
 package dev.butane.oom.oombackend.models;
 
 import com.sun.istack.NotNull;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
+@Table(name = "flashcard")
 public class Flashcard {
 
-    // TODO: Instead of cardId, use UUID
     @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Type(type = "pg-uuid")
+    @Column(name = "cardId")
     @NotNull
-    private String cardId;
+    private UUID cardId;
 
     @NotNull
     private final String title;
@@ -23,23 +28,26 @@ public class Flashcard {
     @NotNull
     private final String back;
 
-// TODO: Flashcard can be into a specific deck. So here we need a variable of type "Deck"
-// TODO: Who is the Maintainer + Collaboratos + Tags etc.
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "deckId")
+    private Deck deck;
 
-    public Flashcard(String title, String front, String back) {
-        this.cardId = UUID.randomUUID().toString();
+    public Flashcard(String title, String front, String back, Deck deck) {
+        this.cardId = UUID.randomUUID();
         this.title = title;
         this.front = front;
         this.back = back;
+        this.deck = deck;
     }
 
     public Flashcard() {
         this.title = "";
         this.front = "";
         this.back = "";
+        this.deck = new Deck();
     }
 
-    public String getCardId() {
+    public UUID getCardId() {
         return cardId;
     }
 
@@ -56,7 +64,7 @@ public class Flashcard {
     }
 
     public String toString() {
-        return "ID: " + cardId + ", Title: " + title + ", Front: " + front + ", Back: " + back;
+        return "ID: " + cardId + ", Title: " + title + ", Front: " + front + ", Back: " + back + ", Deck: " + deck.getDeckId();
     }
 
 }

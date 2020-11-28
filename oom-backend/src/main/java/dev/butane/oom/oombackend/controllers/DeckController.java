@@ -1,6 +1,5 @@
 package dev.butane.oom.oombackend.controllers;
 
-import antlr.collections.List;
 import dev.butane.oom.oombackend.models.Deck;
 import dev.butane.oom.oombackend.repositories.DeckRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +7,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 //@CrossOrigin(origins = "http://localhost:4200")
 public class DeckController {
-    @Autowired
+
     private  final DeckRepository deckRepository;
 
     public DeckController(DeckRepository deckRepository) {
@@ -31,7 +31,7 @@ public class DeckController {
     public ArrayList<Deck> getDecks(){ return (ArrayList<Deck>) deckRepository.findAll(); }
     //Get deck by id
     @GetMapping("/decks/{id}")
-    public Optional<Deck> getDeck(@PathVariable long id) { return deckRepository.findById(id);}
+    public Optional<Deck> getDeck(@PathVariable UUID id) { return deckRepository.findById(id);}
     //Update a deck
     @PutMapping("/decks")
     public void updateDeck(@RequestBody Deck deck){ deckRepository.save(deck);}
