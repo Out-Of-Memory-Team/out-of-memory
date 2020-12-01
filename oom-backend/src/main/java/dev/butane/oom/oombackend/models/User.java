@@ -2,6 +2,7 @@ package dev.butane.oom.oombackend.models;
 
 import com.sun.istack.NotNull;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -27,9 +28,9 @@ public class User implements UserDetails {
     private boolean credentialsNonExpired;
     private boolean enabled;
 
-    /*@Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
-    private List<Role> roles;*/
+    private List<Role> roles;
 
     public User(String username, String firstName, String lastName, String email) {
         this.userId = UUID.randomUUID().toString();
@@ -45,6 +46,7 @@ public class User implements UserDetails {
         this.firstName = "";
         this.lastName = "";
         this.email = "";
+        this.roles = new ArrayList<>();
         this.accountNonExpired = true;
         this.accountNonLocked = true;
         this.credentialsNonExpired = true;
@@ -121,17 +123,15 @@ public class User implements UserDetails {
         return true;
     }
 
-    /*public void grantAuthority(Role authority) {
-        if ( roles == null ) roles = new ArrayList<>();
+    public void grantAuthority(Role authority) {
         roles.add(authority);
-    }*/
+    }
 
     @Override
     public List<GrantedAuthority> getAuthorities(){
-        /*List<GrantedAuthority> authorities = new ArrayList<>();
+        List<GrantedAuthority> authorities = new ArrayList<>();
         roles.forEach(role -> authorities.add(new SimpleGrantedAuthority(role.toString())));
-        return authorities;*/
-        return null;
+        return authorities;
     }
 
     public String toString() {
