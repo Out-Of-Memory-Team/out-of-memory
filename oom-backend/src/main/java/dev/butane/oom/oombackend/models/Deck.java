@@ -1,12 +1,16 @@
 package dev.butane.oom.oombackend.models;
 
 import com.sun.istack.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.*;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "deck")
 public class Deck {
@@ -36,15 +40,21 @@ public class Deck {
     private Set<User> collaborators = new HashSet<User>();
     @OneToMany(mappedBy = "deck", cascade = CascadeType.ALL)
     private List<Flashcard> flashcards = new ArrayList<Flashcard>();
-    @ManyToMany(mappedBy = "decks", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "decktags",
+        joinColumns = @JoinColumn(name = "deckId"),
+        inverseJoinColumns = @JoinColumn(name = "name")
+    )
     private Set<Tag> tags = new HashSet<Tag>();
 
-    public Deck(String title, String description, Visibility visibility, User maintainer) {
+    public Deck(String title, String description, Visibility visibility, User maintainer, Set<Tag> tags) {
         this.deckId = UUID.randomUUID();
         this.title = title;
         this.description = description;
         this.visibility = visibility;
         this.maintainer = maintainer;
+        this.tags = tags;
     }
 
     public Deck() {
@@ -54,40 +64,7 @@ public class Deck {
         this.maintainer = new User();
         this.collaborators = null;
         this.flashcards = null;
-        this.tags = null;
     }
-
-    //Getter
-    public UUID getDeckId() { return deckId; }
-
-    public String getTitle() { return title; }
-
-    public String getDescription() { return description; }
-
-    public Visibility isVisibility() { return visibility; }
-
-    public User getMaintainer() { return maintainer; }
-
-    public Set<User> getCollaborators() { return collaborators; }
-
-    public Set<Tag> getTags() { return tags; }
-
-    public List<Flashcard> getFlashcards() { return flashcards; }
-
-    //Setter
-    public void setTitle(String title) { this.title = title; }
-
-    public void setDescription(String description) { this.description = description; }
-
-    public void setVisibility(Visibility visibility) { this.visibility = visibility; }
-
-    public void setMaintainer(User maintainer) { this.maintainer = maintainer; }
-
-    public void setCollaborators(Set<User> collaborators) { this.collaborators = collaborators; }
-
-    public void setTags(Set<Tag> tags) { this.tags = tags; }
-
-    public void setFlashcards(List<Flashcard> flashcards) { this.flashcards = flashcards; }
 
     @Override
     public String toString() {
@@ -99,7 +76,6 @@ public class Deck {
                 ", maintainer='" + maintainer + '\'' +
                 ", collaborators=" + collaborators +
                 ", flashcards=" + flashcards +
-                ", tags=" + tags +
                 '}';
     }
 }

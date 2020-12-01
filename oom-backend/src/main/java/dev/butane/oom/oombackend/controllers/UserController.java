@@ -2,8 +2,10 @@ package dev.butane.oom.oombackend.controllers;
 
 import dev.butane.oom.oombackend.models.User;
 import dev.butane.oom.oombackend.repositories.UserRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -22,14 +24,20 @@ public class UserController {
         userRepository.save(user);
     }
 
+    @GetMapping("/users")
+    public List<User> getUsers() {
+        return (List<User>) userRepository.findAll();
+    }
+
     // Reads user by Id
-    @GetMapping("/users/{id}")
+    @GetMapping("/user/{id}")
     public Optional<User> getUser(@PathVariable UUID id) {
         return userRepository.findById(id);
     }
 
     // Update an user
-    @PutMapping("/users/{id}")
+    @PutMapping("/users")
+    @ResponseStatus(HttpStatus.OK)
     public void updateUser(@RequestBody User user) {
         userRepository.save(user);
     }
