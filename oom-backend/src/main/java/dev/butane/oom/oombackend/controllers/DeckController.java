@@ -2,7 +2,6 @@ package dev.butane.oom.oombackend.controllers;
 
 import dev.butane.oom.oombackend.models.Deck;
 import dev.butane.oom.oombackend.repositories.DeckRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;

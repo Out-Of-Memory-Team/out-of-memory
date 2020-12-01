@@ -1,6 +1,8 @@
 package dev.butane.oom.oombackend.models;
 
 import com.sun.istack.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
@@ -10,6 +12,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "appuser")
 public class User {
@@ -29,12 +33,6 @@ public class User {
     private final String firstName;
     private final String lastName;
 
-    @OneToMany(mappedBy = "maintainer")
-    private List<Deck> decks;
-
-    @ManyToMany(mappedBy = "collaborators", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<Deck> collDecks = new HashSet<Deck>();
-
     public User(String username, String firstName, String lastName, String email) {
         this.userId = UUID.randomUUID();
         this.username = username;
@@ -49,28 +47,6 @@ public class User {
         this.lastName = "";
         this.email = "";
     }
-
-    public UUID getUserId() {
-        return userId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public Set<Deck> getCollDecks() { return collDecks; }
 
     public String toString() {
         return "ID: " + userId + ", Username: " + username + ", Firstname: " + firstName + ", Lastname: " + lastName + ", Email: " + email;
