@@ -5,6 +5,7 @@ import {Visibility} from "../../shared/models/visibility.model";
 import {CardsBackendService} from "../cards/cards-backend.service";
 import {HttpClient} from "@angular/common/http";
 import {take} from "rxjs/operators";
+import {Flashcard} from "../../shared/models/flashcard.model";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class DecksBackendService {
 
   private readonly ENDPOINT = '/api/decks';
 
-  constructor(private http: HttpClient, private cardBackend: CardsBackendService) {}
+  constructor(private http: HttpClient) {}
 
   getDecks(): Observable<Deck[]> {
     return this.http.get<Deck[]>(this.ENDPOINT);
@@ -21,5 +22,17 @@ export class DecksBackendService {
 
   getDeck(id: string): Observable<Deck> {
     return this.http.get<Deck>(this.ENDPOINT+"/"+id);
+  }
+
+  addDeck(newDeck: Deck): Observable<Deck> {
+    return this.http.post<Deck>(this.ENDPOINT, newDeck);
+  }
+
+  updateDeck(id: string, newDeck: Deck): Observable<Deck> {
+    return this.http.put<Deck>(this.ENDPOINT+"/"+id, newDeck);
+  }
+
+  deleteDeck(id: string): Observable<Deck> {
+    return this.http.delete<Deck>(this.ENDPOINT+"/"+id);
   }
 }

@@ -17,11 +17,15 @@ export class CardsBackendService {
     return this.http.get<Flashcard>(this.ENDPOINT+"/"+id);
   }
 
-  updateCard(newCard: Flashcard): boolean {
-    return false;
+  addCard(newCard: Flashcard): Observable<Flashcard> {
+    return this.http.post<Flashcard>(this.ENDPOINT, newCard);
   }
 
-  deleteCard(id: string): boolean {
-    return false;
+  updateCard(id: string, newCard: Flashcard): Observable<Flashcard> {
+    return this.http.put<Flashcard>(this.ENDPOINT+"/"+id, newCard);
+  }
+
+  deleteCard(id: string): Observable<Flashcard> {
+    return this.http.delete<Flashcard>(this.ENDPOINT+"/"+id);
   }
 }

@@ -6,6 +6,7 @@ import {Flashcard} from "../../../../shared/models/flashcard.model";
 import {CardsBackendService} from "../../../../core/cards/cards-backend.service";
 import {DecksBackendService} from "../../../../core/decks/decks-backend.service";
 import {Deck} from "../../../../shared/models/deck.model";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'page-card-editor',
@@ -38,14 +39,27 @@ export class CardEditorComponent implements OnInit, OnDestroy {
   card: Flashcard;
   decks: Deck[];
 
-  constructor(private route: ActivatedRoute, public cardBackend: CardsBackendService, public deckBackend: DecksBackendService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private toastr: ToastrService,
+    public cardBackend: CardsBackendService,
+    public deckBackend: DecksBackendService
+  ) { }
 
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe(params => {
       this.id = params['card'];
-      this.cardBackend.getCard(this.id).pipe(take(1)).subscribe(c => this.card = c);
+      this.cardBackend.getCard(this.id).pipe(take(1))
+        .subscribe(
+          c => this.card = c,
+          e => this.toastr.error("Card could not be retrieved.", "Failed!")
+        );
     });
-    this.deckBackend.getDecks().pipe(take(1)).subscribe(c => this.decks = c);
+    this.deckBackend.getDecks().pipe(take(1))
+      .subscribe(
+        c => this.decks = c,
+        e => this.toastr.error("Decks could not be retrieved.", "Failed!")
+      );
   }
 
   ngOnDestroy(): void {

@@ -54,11 +54,11 @@ export class DeckDetailComponent implements OnInit, OnDestroy {
       if(cause !== 'submit')
         return;
 
-      if(this.cardBackend.deleteCard(id)) {
-        this.toastr.success("Flashcard deleted.", "Success!")
-      } else {
-        this.toastr.error("Flashcard could not be deleted.", "Failed!")
-      }
+      this.cardBackend.deleteCard(id).pipe(take(1))
+        .subscribe(
+          s => this.toastr.success("Flashcard deleted.", "Success!"),
+          e => this.toastr.error("Flashcard could not be deleted.", "Failed!")
+        );
     });
   }
 }
