@@ -1,6 +1,7 @@
 import {User} from "./user.model";
 import {Flashcard} from "./flashcard.model";
 import {Visibility} from "./visibility.model";
+import {Tag} from "./tag.model";
 
 export class Deck {
 
@@ -11,5 +12,5 @@ export class Deck {
   maintainer: User;
   collaborators: User[];
   flashcards: Flashcard[];
-  tags: string[];
+  tags: Tag[];
 }

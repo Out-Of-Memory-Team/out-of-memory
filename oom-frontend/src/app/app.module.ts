@@ -16,6 +16,7 @@ import {FormsModule} from "@angular/forms";
 import {ToastrModule} from "ngx-toastr";
 import {TagsModule} from "./shared/modules/tags/tags.module";
 import {DialogModule} from "./core/dialog/dialog.module";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import {DialogModule} from "./core/dialog/dialog.module";
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     ClarityModule,
     BrowserAnimationsModule,
     QuillModule.forRoot(),

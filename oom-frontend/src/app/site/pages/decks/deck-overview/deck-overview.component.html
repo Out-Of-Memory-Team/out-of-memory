@@ -14,11 +14,11 @@
     <clr-dg-column>Size</clr-dg-column>
     <clr-dg-column>Tags</clr-dg-column>
 
-    <clr-dg-row *clrDgItems="let deck of (deckBackend.getDecks() | async)" [clrDgItem]="deck" [routerLink]="deck.deckId">
+    <clr-dg-row *clrDgItems="let deck of decks" [clrDgItem]="deck" [routerLink]="deck.deckId">
       <clr-dg-cell class="entry-cell">{{deck.title}}</clr-dg-cell>
       <clr-dg-cell class="entry-cell">{{deck.flashcards | size}} card(s)</clr-dg-cell>
       <clr-dg-cell>
-        <span *ngFor="let tag of deck.tags" class="label label-purple">{{tag}}</span>
+        <span *ngFor="let tag of deck.tags" class="label label-purple">{{tag.name}}</span>
       </clr-dg-cell>
     </clr-dg-row>
 

@@ -42,7 +42,7 @@ export class CardEditorComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe(params => {
-      this.id = params['id'];
+      this.id = params['card'];
       this.cardBackend.getCard(this.id).pipe(take(1)).subscribe(c => this.card = c);
     });
     this.deckBackend.getDecks().pipe(take(1)).subscribe(c => this.decks = c);
