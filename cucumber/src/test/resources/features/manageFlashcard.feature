@@ -3,20 +3,18 @@ Feature: Manage Flashcard
     I should be able to manage flashcards using "Manage Flashcard"
 
     Scenario: Create new flashcard with required information
-    Given I expect the user to enter a front, a back and the deck for the new flashcard
-    When The 'Save'-Button was clicked
-    Then The Tooltip "Successfully added new flashcard to deck" is displayed
-
-    Scenario: Create new flashcard without required information
-    Given I do not expect any input from the user
-    When The 'Save'-Button was clicked
-    Then The Tooltip "Failed to add new flashcard to deck" is displayed
+    Given User is on the create Flashcard-page
+    When  the user to enter a front, a back and the deck for the new flashcard
+    When  User clicks on save-Button
+    Then  User is navigated to FlashcardList-page
 
     Scenario: Edit a flashcard
+    Given User is on the FlashcardList-page
     Given The user created at least one flashcard
-    And A flashcard is selected 
+    When User select a flashcard
     When Clicked on 'Edit'-Icon
-    Then The 'Create'-Page is shown with all information that can be edited
+    When User can edit front, back and the deck
+    Then User is navigated back to FlashcardList-page
 
     Scenario: Show Flashcard
     Given I expect the user taps on "Manage Flashcard"
