@@ -24,6 +24,12 @@ export class DeckEditorComponent implements OnInit {
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe(params => {
       this.id = params['deck'];
+
+      if(this.id === 'new') {
+        this.deck = new Deck();
+        return;
+      }
+
       this.deckBackend.getDeck(this.id).pipe(take(1))
           .subscribe(
               d => this.deck = d,

@@ -18,13 +18,13 @@ public class DeckController {
         this.deckRepository = deckRepository;
     }
     //Create a Deck
-    @PostMapping("/decks")
+    @PutMapping("/decks")
     public void createDeck(@RequestBody Deck deck) {
         deckRepository.save(deck);
     }
     //Delete a Deck
-    @DeleteMapping("/deleteDeck")
-    public void deleteDeck(@RequestBody Deck deck) { deckRepository.delete(deck);}
+    @DeleteMapping("/decks/{id}")
+    public void deleteDeck(@PathVariable UUID id) { deckRepository.deleteById(id);}
     //Get all decks
     @GetMapping("/decks")
     public ArrayList<Deck> getDecks(){ return (ArrayList<Deck>) deckRepository.findAll(); }
@@ -32,8 +32,8 @@ public class DeckController {
     @GetMapping("/decks/{id}")
     public Optional<Deck> getDeck(@PathVariable UUID id) { return deckRepository.findById(id);}
     //Update a deck
-    @PutMapping("/decks")
-    public void updateDeck(@RequestBody Deck deck){ deckRepository.save(deck);}
+    @PutMapping("/decks/{id}")
+    public void updateDeck(@PathVariable UUID id, @RequestBody Deck deck){ deckRepository.save(deck);}
 
 
 }

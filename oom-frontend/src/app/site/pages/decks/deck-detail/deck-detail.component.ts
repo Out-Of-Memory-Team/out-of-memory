@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DecksBackendService} from "../../../../core/decks/decks-backend.service";
 import {Deck} from "../../../../shared/models/deck.model";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {take} from "rxjs/operators";
 import {Subscription} from "rxjs";
 import {CardsBackendService} from "../../../../core/cards/cards-backend.service";
@@ -23,6 +23,7 @@ export class DeckDetailComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private toastr: ToastrService,
     public dialog: DialogService,
     private deckBackend: DecksBackendService,
@@ -45,7 +46,7 @@ export class DeckDetailComponent implements OnInit, OnDestroy {
       data: {
         type: DialogType.WARNING,
         title: 'Delete Flashcard',
-        message: 'Are you sure about deleting the flashcard?',
+        message: 'Are you sure about deleting the flashcard? This action is irreversible.',
         submitMessage: 'Delete'
       },
     });
@@ -58,6 +59,31 @@ export class DeckDetailComponent implements OnInit, OnDestroy {
         .subscribe(
           s => this.toastr.success("Flashcard deleted.", "Success!"),
           e => this.toastr.error("Flashcard could not be deleted.", "Failed!")
+        );
+    });
+  }
+
+  deleteDeck() {
+    const res = this.dialog.open({
+      data: {
+        type: DialogType.WARNING,
+        title: 'Delete Deck',
+        message: 'Are you sure about deleting this deck? This action is irreversible.',
+        submitMessage: 'Delete'
+      },
+    });
+
+    res.afterClosed.pipe(take(1)).subscribe(cause => {
+      if(cause !== 'submit')
+        return;
+
+      this.deckBackend.deleteDeck(this.id).pipe(take(1))
+        .subscribe(
+          s => {
+            this.router.navigate(['/decks'])
+            this.toastr.success("Deck deleted.", "Success!");
+          },
+          e => this.toastr.error("Deck could not be deleted.", "Failed!")
         );
     });
   }

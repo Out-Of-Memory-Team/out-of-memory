@@ -31,7 +31,7 @@ public class FlashcardController {
     }
 
     // Create a card TODO: of specific user
-    @PostMapping("/cards")
+    @PutMapping("/cards")
     public void createFlashcard(@RequestBody Flashcard card) {
         flashcardRepository.save(card);
     }

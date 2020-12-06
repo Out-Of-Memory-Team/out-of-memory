@@ -5,6 +5,14 @@ import {Tag} from "./tag.model";
 
 export class Deck {
 
+  constructor() {
+    this.deckId = null;
+    this.visibility = Visibility.PUBLIC;
+    this.collaborators = [];
+    this.flashcards = [];
+    this.tags = [];
+  }
+
   deckId: string;
   title: string;
   description: string;

@@ -18,7 +18,7 @@ export class CardsBackendService {
   }
 
   addCard(newCard: Flashcard): Observable<Flashcard> {
-    return this.http.post<Flashcard>(this.ENDPOINT, newCard);
+    return this.http.put<Flashcard>(this.ENDPOINT, newCard);
   }
 
   updateCard(id: string, newCard: Flashcard): Observable<Flashcard> {
