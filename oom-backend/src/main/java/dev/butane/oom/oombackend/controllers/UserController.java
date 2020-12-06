@@ -33,7 +33,7 @@ public class UserController {
 
     // Creates or Update an user
     @PutMapping("/users")
-    public User updateUser(@RequestBody User user) {
+    public User createOrUpdateUser(@RequestBody User user) {
         return userRepository.save(user);
     }
     
