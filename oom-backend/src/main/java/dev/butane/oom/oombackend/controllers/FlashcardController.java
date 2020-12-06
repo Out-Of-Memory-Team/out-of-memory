@@ -9,7 +9,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-//@CrossOrigin(origins = "http://localhost:4200")
 public class FlashcardController {
 
     private final FlashcardRepository flashcardRepository;
@@ -18,28 +17,22 @@ public class FlashcardController {
         this.flashcardRepository = flashcardRepository;
     }
 
-    // Reads all cards TODO: By specific user
+    // Get all cards TODO: By specific user
     @GetMapping("/cards")
     public List<Flashcard> getFlashcards() {
         return (List<Flashcard>) flashcardRepository.findAll();
     }
 
-    // Read card by Id TODO: By specific user
+    // Get card by Id TODO: By specific user
     @GetMapping("/cards/{id}")
     public Optional<Flashcard> getFlashcardById(@PathVariable UUID id) {
         return flashcardRepository.findById(id);
     }
 
-    // Create a card TODO: of specific user
+    // Create or Update a card TODO: of specific user
     @PutMapping("/cards")
-    public void createFlashcard(@RequestBody Flashcard card) {
-        flashcardRepository.save(card);
-    }
-
-    // Update a card TODO: of specific user
-    @PutMapping("/cards/{id}")
-    public void updateFlashcard(@RequestBody Flashcard card) {
-        flashcardRepository.save(card);
+    public Flashcard createorUpdateFlashcard(@RequestBody Flashcard card) {
+        return flashcardRepository.save(card);
     }
 
     // Delete a card

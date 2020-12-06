@@ -18,28 +18,23 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-    // Create an user
-    @PostMapping("/users")
-    public void createUser(@RequestBody User user) {
-        userRepository.save(user);
-    }
 
+    // Get all users
     @GetMapping("/users")
     public List<User> getUsers() {
         return (List<User>) userRepository.findAll();
     }
 
-    // Reads user by Id
+    // Get user by Id
     @GetMapping("/user/{id}")
     public Optional<User> getUser(@PathVariable UUID id) {
         return userRepository.findById(id);
     }
 
-    // Update an user
+    // Creates or Update an user
     @PutMapping("/users")
-    @ResponseStatus(HttpStatus.OK)
-    public void updateUser(@RequestBody User user) {
-        userRepository.save(user);
+    public User updateUser(@RequestBody User user) {
+        return userRepository.save(user);
     }
     
     // Deletes user by Id
