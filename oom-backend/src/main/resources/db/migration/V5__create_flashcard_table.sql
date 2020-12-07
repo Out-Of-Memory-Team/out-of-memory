@@ -1,6 +1,5 @@
 CREATE TABLE IF NOT EXISTS oom.flashcard
 (
-    title character varying(100) COLLATE pg_catalog."default" NOT NULL,
     front text COLLATE pg_catalog."default" NOT NULL,
     back text COLLATE pg_catalog."default" NOT NULL,
     cardId uuid NOT NULL,

@@ -80,7 +80,7 @@ export class DeckDetailComponent implements OnInit, OnDestroy {
       this.deckBackend.deleteDeck(this.id).pipe(take(1))
         .subscribe(
           s => {
-            this.router.navigate(['/decks'])
+            void this.router.navigate(['/decks'])
             this.toastr.success("Deck deleted.", "Success!");
           },
           e => this.toastr.error("Deck could not be deleted.", "Failed!")

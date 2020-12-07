@@ -54,16 +54,22 @@ export class CardEditorComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe(params => {
       this.id = params['card'];
+
+      if(this.id === 'new') {
+        this.card = new Flashcard();
+        return;
+      }
+
       this.cardBackend.getCard(this.id).pipe(take(1))
         .subscribe(
           c => this.card = c,
-          e => this.toastr.error("Card could not be retrieved.", "Failed!")
+          e => this.toastr.error('Card could not be retrieved.', 'Failed!')
         );
     });
     this.deckBackend.getDecks().pipe(take(1))
       .subscribe(
         c => this.decks = c,
-        e => this.toastr.error("Decks could not be retrieved.", "Failed!")
+        e => this.toastr.error('Decks could not be retrieved.', 'Failed!')
       );
   }
 
@@ -72,24 +78,14 @@ export class CardEditorComponent implements OnInit, OnDestroy {
   }
 
   saveChanges(): void {
-    if(this.id === 'new') {
-      this.deckBackend.getDecks().pipe(take(1))
-        .subscribe(
-          c => {
-            this.toastr.success("Card saved.", "Success!");
-            this.location.back();
-          },
-          e => this.toastr.error("Card could not be saved.", "Failed!")
-        );
-    }
-
-    this.cardBackend.updateCard(this.id, this.card).pipe(take(1))
+    console.log(this.card);
+    this.cardBackend.createOrUpdateDeck(this.card).pipe(take(1))
       .subscribe(
         c => {
-          this.toastr.success("Card saved.", "Success!");
+          this.toastr.success('Card saved.', 'Success!');
           this.location.back();
         },
-        e => this.toastr.error("Card could not be saved.", "Failed!")
+        e => this.toastr.error('Card could not be saved.', 'Failed!')
       );
   }
 

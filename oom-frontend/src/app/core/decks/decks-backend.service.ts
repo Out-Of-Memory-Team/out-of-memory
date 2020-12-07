@@ -24,12 +24,8 @@ export class DecksBackendService {
     return this.http.get<Deck>(this.ENDPOINT+"/"+id);
   }
 
-  addDeck(newDeck: Deck): Observable<Deck> {
+  createOrUpdateDeck(newDeck: Deck): Observable<Deck> {
     return this.http.put<Deck>(this.ENDPOINT, newDeck);
-  }
-
-  updateDeck(id: string, newDeck: Deck): Observable<Deck> {
-    return this.http.put<Deck>(this.ENDPOINT+"/"+id, newDeck);
   }
 
   deleteDeck(id: string): Observable<Deck> {

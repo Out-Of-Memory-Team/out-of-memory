@@ -13,11 +13,11 @@ export class Deck {
     this.tags = [];
   }
 
-  deckId: string;
+  deckId?: string;
   title: string;
   description: string;
   visibility: Visibility;
-  maintainer: User;
+  maintainer?: User;
   collaborators: User[];
   flashcards: Flashcard[];
   tags: Tag[];
