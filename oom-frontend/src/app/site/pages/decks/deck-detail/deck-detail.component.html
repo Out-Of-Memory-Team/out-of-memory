@@ -22,6 +22,7 @@
       <div class="clr-row padding-bottom-small">
         <div class="clr-col-12">
           <span class="p4">Tags</span><br>
+          <span *ngIf="deck.tags.length === 0">no tags</span>
           <span *ngFor="let tag of deck.tags" class="label label-purple">{{tag.name}}</span>
         </div>
       </div>
@@ -43,12 +44,12 @@
     <div *ngFor="let card of deck.flashcards" class="clr-row">
       <div class="clr-col">
         <div>
-          <quill-editor [format]="'text'" [readOnly]="true" [modules]="{ toolbar: false }" [styles]="{ height: '250px' }" [sanitize]="true" [ngModel]="card.front" class="margin-right-small"></quill-editor>
+          <quill-editor [format]="'json'" [readOnly]="true" [modules]="{ toolbar: false }" [styles]="{ height: '250px' }" [sanitize]="true" [ngModel]="card.front" class="margin-right-small"></quill-editor>
         </div>
       </div>
       <div class="clr-col">
         <div>
-          <quill-editor [format]="'text'" [readOnly]="true" [modules]="{ toolbar: false }" [styles]="{ height: '250px' }" [sanitize]="true" [ngModel]="card.back" class="margin-right-small"></quill-editor>
+          <quill-editor [format]="'json'" [readOnly]="true" [modules]="{ toolbar: false }" [styles]="{ height: '250px' }" [sanitize]="true" [ngModel]="card.back" class="margin-right-small"></quill-editor>
         </div>
       </div>
       <div class="clr-col-1">
@@ -70,9 +71,9 @@
     </div>
   </div>
 
-  <div class="card">
-    <div class="card-block">
-      <button type="button" class="btn btn-icon btn-success" aria-label="done" [routerLink]="'/cards/new'">
+  <div class="card no-margin">
+    <div class="card-block flex-center">
+      <button type="button" class="btn btn-icon btn-link" aria-label="done" [routerLink]="'/cards/new'">
         <clr-icon shape="plus"></clr-icon>
         Add Flashcard
       </button>

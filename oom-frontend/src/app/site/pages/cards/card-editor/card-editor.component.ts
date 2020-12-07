@@ -68,7 +68,7 @@ export class CardEditorComponent implements OnInit, OnDestroy {
     });
     this.deckBackend.getDecks().pipe(take(1))
       .subscribe(
-        c => this.decks = c,
+        d => this.decks = d,
         e => this.toastr.error('Decks could not be retrieved.', 'Failed!')
       );
   }
@@ -78,7 +78,6 @@ export class CardEditorComponent implements OnInit, OnDestroy {
   }
 
   saveChanges(): void {
-    console.log(this.card);
     this.cardBackend.createOrUpdateDeck(this.card).pipe(take(1))
       .subscribe(
         c => {

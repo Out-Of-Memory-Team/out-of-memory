@@ -15,12 +15,12 @@
     <div class="clr-row">
       <div class="clr-col">
         <div>
-          <quill-editor [format]="'text'" [modules]="modules" [styles]="{ height: '250px' }" [sanitize]="true" [(ngModel)]="card.front" class="margin-right-small"></quill-editor>
+          <quill-editor [format]="'json'" [modules]="modules" [styles]="{ height: '250px' }" [sanitize]="true" [(ngModel)]="card.front" class="margin-right-small"></quill-editor>
         </div>
       </div>
       <div class="clr-col">
         <div>
-          <quill-editor [format]="'text'" [modules]="modules" [styles]="{ height: '250px' }" [sanitize]="true" [(ngModel)]="card.back" class="margin-right-small"></quill-editor>
+          <quill-editor [format]="'json'" [modules]="modules" [styles]="{ height: '250px' }" [sanitize]="true" [(ngModel)]="card.back" class="margin-right-small"></quill-editor>
         </div>
       </div>
     </div>
@@ -34,7 +34,7 @@
           <clr-combobox-container class="no-margin">
             <clr-combobox [(ngModel)]="card.deckId" required>
               <clr-options>
-                <clr-option *clrOptionItems="let deck of decks" [clrValue]="deck.deckId">
+                <clr-option *clrOptionItems="let deck of decks; field:'title'" [clrValue]="deck.deckId">
                   {{deck.title}}
                 </clr-option>
               </clr-options>
