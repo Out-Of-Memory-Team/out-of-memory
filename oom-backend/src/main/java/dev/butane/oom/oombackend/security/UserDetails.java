@@ -22,7 +22,7 @@ public class UserDetails implements UserDetailsService {
         if (user.isPresent()){
             return user.get();
         }else{
-            throw new UsernameNotFoundException(String.format("Username[%s] not found"));
+            throw new UsernameNotFoundException(String.format("Username %s not found", s));
         }
     }
 }
