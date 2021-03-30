@@ -23,6 +23,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     private String jwtType;
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager, String jwtAudience, String jwtIssuer, String jwtSecret, String jwtType) {
+        super();
         this.jwtAudience = jwtAudience;
         this.jwtIssuer = jwtIssuer;
         this.jwtSecret = jwtSecret;

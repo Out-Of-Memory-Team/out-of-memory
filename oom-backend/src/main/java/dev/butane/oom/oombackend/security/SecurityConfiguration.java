@@ -1,6 +1,7 @@
 package dev.butane.oom.oombackend.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -40,19 +41,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+        http.cors().and().csrf().disable()
                 .addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtAudience, jwtIssuer, jwtSecret, jwtType))
+                .addFilter(new JwtAuthorizationFilter(authenticationManager(), jwtAudience, jwtIssuer, jwtSecret, jwtType))
                 .authorizeRequests()
                     .antMatchers("/", "/home").permitAll()
                     .anyRequest().authenticated()
                     .and()
-                .formLogin()
+                //.formLogin()
                     //.loginPage("/login")
-                    .permitAll()
-                    .and()
-                .logout()
-                    .permitAll()
-                    .and()
+                //    .permitAll()
+                //    .and()
+                //.logout()
+                //    .permitAll();
+                //    .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
