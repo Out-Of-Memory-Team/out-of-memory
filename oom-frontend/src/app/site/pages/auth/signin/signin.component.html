@@ -17,7 +17,7 @@
       <div class="error active">
         Invalid user name or password
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" (click)="submit()" class="btn btn-primary">Submit</button>
       <a [routerLink]="'/auth/signup'" class="signup">Register</a>
     </div>
   </form>

@@ -1,3 +1,4 @@
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
@@ -16,6 +17,7 @@ import {FormsModule} from "@angular/forms";
 import {ToastrModule} from "ngx-toastr";
 import {TagsModule} from "./shared/modules/tags/tags.module";
 import {DialogModule} from "./core/dialog/dialog.module";
+import { AuthInterceptor } from './core/auth/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -40,9 +42,10 @@ import {DialogModule} from "./core/dialog/dialog.module";
     LandingModule,
     PipesModule,
     FormsModule,
-    TagsModule
+    TagsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
