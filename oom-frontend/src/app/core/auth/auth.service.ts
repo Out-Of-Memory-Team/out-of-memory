@@ -3,7 +3,7 @@ import { tap } from "rxjs/operators";
 import { User } from './../../shared/models/user.model';
 import { SigninInfoDTO } from './../../shared/models/dto/SigninInfoDTO.model';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,6 @@ export class AuthService {
   }
 
   private setSession(authResult) {
-    console.log(authResult);
-    localStorage.setItem('id_token', authResult);
+    localStorage.setItem('id_token', authResult.headers.get('Authorization'));
   }
 }
