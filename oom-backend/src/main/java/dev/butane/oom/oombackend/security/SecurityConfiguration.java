@@ -30,7 +30,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Value("${jwt.secret}")
@@ -55,16 +55,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtAudience, jwtIssuer, jwtSecret, jwtType))
             .addFilter(new JwtAuthorizationFilter(authenticationManager(), jwtAudience, jwtIssuer, jwtSecret, jwtType))
             .authorizeRequests()
-                .antMatchers("/", "/home").permitAll()
+                .antMatchers("/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                //.formLogin()
-                    //.loginPage("/login")
-                //    .permitAll()
-                //    .and()
-                //.logout()
-                //    .permitAll();
-                //    .and()
+                .logout()
+                    .permitAll()
+                    .and()
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
