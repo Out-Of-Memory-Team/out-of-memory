@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DecksBackendService} from "../../../../core/decks/decks-backend.service";
 import {Deck} from "../../../../shared/models/deck.model";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {take} from "rxjs/operators";
-import {Subscription} from "rxjs";
+import {BehaviorSubject, Observable, Subscription} from "rxjs";
 import {CardsBackendService} from "../../../../core/cards/cards-backend.service";
 import {ToastrService} from "ngx-toastr";
 import {DialogService} from "../../../../core/dialog/dialog.service";
@@ -16,7 +16,9 @@ import {DialogType} from "../../../../core/dialog/dialog-data/dialog-type.enum";
 })
 export class DeckDetailComponent implements OnInit, OnDestroy {
 
-  routeSub: Subscription;
+  route$: Observable<Params>;
+  routeSub$: Subscription;
+  fetchTrigger$ = new BehaviorSubject(null);
 
   id: string;
   deck: Deck;
@@ -31,14 +33,21 @@ export class DeckDetailComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.routeSub = this.route.params.subscribe(params => {
+    this.route$ = this.route.params;
+
+    this.routeSub$ = this.route$.subscribe(params => {
       this.id = params['deck'];
-      this.deckBackend.getDeck(this.id).pipe(take(1)).subscribe(d => this.deck = d);
+      this.fetchTrigger$.next(this.id);
+    });
+
+    this.fetchTrigger$.subscribe(id => {
+      this.deckBackend.getDeck(id).pipe(take(1)).subscribe(d => this.deck = d);
     });
   }
 
   ngOnDestroy(): void {
-    this.routeSub.unsubscribe();
+    this.fetchTrigger$.unsubscribe();
+    this.routeSub$.unsubscribe();
   }
 
   deleteCard(id: string): void {
