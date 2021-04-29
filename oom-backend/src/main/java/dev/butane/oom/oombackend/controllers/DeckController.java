@@ -9,7 +9,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-//@CrossOrigin(origins = "http://localhost:4200")
 public class DeckController {
 
     private  final DeckRepository deckRepository;
@@ -17,23 +16,22 @@ public class DeckController {
     public DeckController(DeckRepository deckRepository) {
         this.deckRepository = deckRepository;
     }
-    //Create a Deck
-    @PostMapping("/decks")
-    public void createDeck(@RequestBody Deck deck) {
-        deckRepository.save(deck);
-    }
-    //Delete a Deck
-    @DeleteMapping("/deleteDeck")
-    public void deleteDeck(@RequestBody Deck deck) { deckRepository.delete(deck);}
-    //Get all decks
+
+    // Get all decks
     @GetMapping("/decks")
     public ArrayList<Deck> getDecks(){ return (ArrayList<Deck>) deckRepository.findAll(); }
-    //Get deck by id
+
+    // Get deck by id
     @GetMapping("/decks/{id}")
     public Optional<Deck> getDeck(@PathVariable UUID id) { return deckRepository.findById(id);}
-    //Update a deck
+
+    // Create or Update a Deck
     @PutMapping("/decks")
-    public void updateDeck(@RequestBody Deck deck){ deckRepository.save(deck);}
+    public Deck createOrUpdateDeck(@RequestBody Deck deck) {
+        return deckRepository.save(deck);
+    }
 
-
+    // Delete a Deck
+    @DeleteMapping("/decks/{id}")
+    public void deleteDeck(@PathVariable UUID id) { deckRepository.deleteById(id);}
 }

@@ -1,8 +1,7 @@
 package dev.butane.oom.oombackend.models;
 
 import com.sun.istack.NotNull;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
@@ -12,8 +11,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "appuser")
 public class User {
@@ -27,30 +27,10 @@ public class User {
     private UUID userId;
 
     @NotNull
-    private final String username;
+    private String username;
     @NotNull
-    private final String email;
-    private final String firstName;
-    private final String lastName;
-
-    public User(String username, String firstName, String lastName, String email) {
-        this.userId = UUID.randomUUID();
-        this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-    }
-
-    public User() {
-        this.username = "";
-        this.firstName = "";
-        this.lastName = "";
-        this.email = "";
-    }
-
-    public String toString() {
-        return "ID: " + userId + ", Username: " + username + ", Firstname: " + firstName + ", Lastname: " + lastName + ", Email: " + email;
-    }
-
+    private String email;
+    private String firstName;
+    private String lastName;
 }
 

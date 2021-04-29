@@ -1,6 +1,13 @@
+import {Deck} from "./deck.model";
+
 export class Flashcard {
 
-  cardId: string;
+  constructor() {
+    this.cardId = null;
+  }
+
+  cardId?: string;
+  deckId?: string;
   front: string;
   back: string;
 }
