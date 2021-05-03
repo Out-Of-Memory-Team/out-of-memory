@@ -1,4 +1,5 @@
-<div class="page-shell">
+<div class="page-shell" *ngIf="deck">
+
   <div class="card">
     <div class="card-block">
       <div class="card-title">
@@ -22,6 +23,7 @@
       </div>
     </div>
   </div>
+
   <div class="card">
     <div class="card-block">
       <div class="card-title">
@@ -41,11 +43,19 @@
           </div>
           <div class="clr-col-9">
             <span class="p4">Collaborators</span><br>
-            <span *ngIf="deck.collaborators.length === 0">no collaborators</span><br>
+            <span *ngIf="deck.collaborators.length === 0">no collaborators</span>
             <span *ngFor="let user of deck.collaborators" class="label label-purple">{{user.username}}</span>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <div class="card">
+    <div class="card-block">
+      <button class="btn btn-danger-outline" (click)="discardChanges()">Discard</button>
+      <button class="btn btn-primary" (click)="saveChanges()">Save</button>
+    </div>
+  </div>
+
 </div>

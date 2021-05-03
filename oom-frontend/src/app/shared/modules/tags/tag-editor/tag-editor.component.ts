@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Tag} from "../../../models/tag.model";
 
 @Component({
   selector: 'tag-editor',
@@ -7,16 +8,16 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 })
 export class TagEditorComponent {
 
-  @Input() tags: string[] = [];
+  @Input() tags: Tag[] = [];
 
-  @Output() tagsChange: EventEmitter<string[]> = new EventEmitter<string[]>();
-  @Output() tagSelect: EventEmitter<string> = new EventEmitter<string>();
-  @Output() tagDelete: EventEmitter<string> = new EventEmitter<string>();
-  @Output() tagAdd: EventEmitter<string> = new EventEmitter<string>();
+  @Output() tagsChange: EventEmitter<Tag[]> = new EventEmitter<Tag[]>();
+  @Output() tagSelect: EventEmitter<Tag> = new EventEmitter<Tag>();
+  @Output() tagDelete: EventEmitter<Tag> = new EventEmitter<Tag>();
+  @Output() tagAdd: EventEmitter<Tag> = new EventEmitter<Tag>();
 
   selected: number = -1;
   addModal: boolean = false;
-  newTag: string;
+  newTagName: string;
 
   constructor() { }
 
@@ -31,7 +32,7 @@ export class TagEditorComponent {
     this.tagDelete.emit(this.tags[index]);
   }
 
-  add(tag: string): void {
+  add(tag: Tag): void {
     this.tags.push(tag);
     this.tagsChange.emit(this.tags);
     this.tagAdd.emit(tag);
@@ -43,14 +44,14 @@ export class TagEditorComponent {
 
   closeAddModal(): void {
     this.addModal = false;
-    this.newTag = '';
+    this.newTagName = '';
   }
 
   submitAddModal(): void {
-    if(this.tags.indexOf(this.newTag.toLowerCase()) !== -1)
+    if(!this.tags.findIndex(t => t.name === this.newTagName.toLowerCase()))
       return;
 
-    this.add(this.newTag.toLowerCase());
+    this.add(new Tag(this.newTagName.toLowerCase()));
     this.closeAddModal();
   }
 }

@@ -1,12 +1,20 @@
 package dev.butane.oom.oombackend.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.NotNull;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.UUID;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "flashcard")
 public class Flashcard {
@@ -20,52 +28,14 @@ public class Flashcard {
     private UUID cardId;
 
     @NotNull
-    private final String title;
+    private String front;
 
     @NotNull
-    private final String front;
+    private String back;
 
-    @NotNull
-    private final String back;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "deckId")
+    @JsonIgnore
     private Deck deck;
-
-    public Flashcard(String title, String front, String back, Deck deck) {
-        this.cardId = UUID.randomUUID();
-        this.title = title;
-        this.front = front;
-        this.back = back;
-        this.deck = deck;
-    }
-
-    public Flashcard() {
-        this.title = "";
-        this.front = "";
-        this.back = "";
-        this.deck = new Deck();
-    }
-
-    public UUID getCardId() {
-        return cardId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getFront() {
-        return front;
-    }
-
-    public String getBack() {
-        return back;
-    }
-
-    public String toString() {
-        return "ID: " + cardId + ", Title: " + title + ", Front: " + front + ", Back: " + back + ", Deck: " + deck.getDeckId();
-    }
-
 }
 

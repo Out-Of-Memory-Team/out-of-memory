@@ -1,24 +1,16 @@
 package dev.butane.oom.oombackend.models;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "tag")
 public class Tag {
+
     @Id
     private String name;
-
-    public Tag(String name) {
-        this.name = name;
-    }
-
-    public Tag() {
-
-    }
-
 }

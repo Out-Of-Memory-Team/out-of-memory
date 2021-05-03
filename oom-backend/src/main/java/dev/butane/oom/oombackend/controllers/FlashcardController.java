@@ -1,6 +1,9 @@
 package dev.butane.oom.oombackend.controllers;
 
+import dev.butane.oom.oombackend.models.Deck;
 import dev.butane.oom.oombackend.models.Flashcard;
+import dev.butane.oom.oombackend.models.dto.FlashcardDTO;
+import dev.butane.oom.oombackend.repositories.DeckRepository;
 import dev.butane.oom.oombackend.repositories.FlashcardRepository;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,37 +12,33 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-//@CrossOrigin(origins = "http://localhost:4200")
 public class FlashcardController {
 
     private final FlashcardRepository flashcardRepository;
+    private final DeckRepository deckRepository;
 
-    public FlashcardController(FlashcardRepository flashcardRepository) {
+    public FlashcardController(FlashcardRepository flashcardRepository, DeckRepository deckRepository) {
         this.flashcardRepository = flashcardRepository;
+        this.deckRepository = deckRepository;
     }
 
-    // Reads all cards TODO: By specific user
+    // Get all cards TODO: By specific user
     @GetMapping("/cards")
-    public List<Flashcard> getFlashcards() {
-        return (List<Flashcard>) flashcardRepository.findAll();
+    public List<FlashcardDTO> getFlashcards() {
+        return FlashcardDTO.map(flashcardRepository.findAll());
     }
 
-    // Read card by Id TODO: By specific user
+    // Get card by Id TODO: By specific user
     @GetMapping("/cards/{id}")
-    public Optional<Flashcard> getFlashcardById(@PathVariable UUID id) {
-        return flashcardRepository.findById(id);
+    public Optional<FlashcardDTO> getFlashcardById(@PathVariable UUID id) {
+        return FlashcardDTO.map(flashcardRepository.findById(id));
     }
 
-    // Create a card TODO: of specific user
-    @PostMapping("/cards")
-    public void createFlashcard(@RequestBody Flashcard card) {
-        flashcardRepository.save(card);
-    }
-
-    // Update a card TODO: of specific user
-    @PutMapping("/cards/{id}")
-    public void updateFlashcard(@RequestBody Flashcard card) {
-        flashcardRepository.save(card);
+    // Create or Update a card TODO: of specific user
+    @PutMapping("/cards")
+    public FlashcardDTO createOrUpdateFlashcard(@RequestBody FlashcardDTO card) {
+        Deck deck = deckRepository.findById(card.getDeckId()).orElseThrow(RuntimeException::new);
+        return FlashcardDTO.map(flashcardRepository.save(card.apply(deck)));
     }
 
     // Delete a card
