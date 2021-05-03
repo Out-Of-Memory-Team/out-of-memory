@@ -18,4 +18,4 @@ CREATE TABLE IF NOT EXISTS oom.collaborator
     TABLESPACE pg_default;
 
 ALTER TABLE oom.collaborator
-    OWNER to postgres;
+    OWNER to oom;

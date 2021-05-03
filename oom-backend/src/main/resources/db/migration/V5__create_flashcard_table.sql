@@ -15,4 +15,4 @@ CREATE TABLE IF NOT EXISTS oom.flashcard
     TABLESPACE pg_default;
 
 ALTER TABLE oom.flashcard
-    OWNER to postgres;
+    OWNER to oom;
