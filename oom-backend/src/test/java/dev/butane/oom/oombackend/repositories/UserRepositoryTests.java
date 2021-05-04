@@ -1,5 +1,6 @@
 package dev.butane.oom.oombackend.repositories;
 
+import dev.butane.oom.oombackend.models.Role;
 import dev.butane.oom.oombackend.models.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -42,9 +44,9 @@ public class UserRepositoryTests {
     @Test
     public void repositoryShouldReturnAllUsers() {
 
-        userRepository.save(new User(UUID.randomUUID(), "james123", "james@something.de", "James", "Sunderland"));
-        userRepository.save(new User(UUID.randomUUID(), "frank12", "frank@something.de", "Frank", "Mercury"));
-        userRepository.save(new User(UUID.randomUUID(), "jay2", "jay@something.de", "Jay", "Z"));
+        userRepository.save(new User(UUID.randomUUID(), "james123", "james@something.de", "James", "Sunderland", "pw123", true, true, true, true, Role.ADMIN));
+        userRepository.save(new User(UUID.randomUUID(), "frank12", "frank@something.de", "Frank", "Mercury","pw111", true, true, true, true, Role.DEV));
+        userRepository.save(new User(UUID.randomUUID(), "jay2", "jay@something.de", "Jay", "Z", "pw222", true, true, true, true, Role.USER));
 
         long numUsers = userRepository.count();
 
