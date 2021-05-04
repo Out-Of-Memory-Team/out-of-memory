@@ -39,25 +39,20 @@ public class User implements UserDetails {
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
     private boolean enabled;
-    
     @Enumerated(EnumType.STRING)
-    @ElementCollection(fetch = FetchType.EAGER)
-    private List<Role> roles;
+    private Role role;
 
     @Override
     public boolean isEnabled() {
         return true;
     }
 
-    public void grantAuthority(Role authority) {
-        roles.add(authority);
-    }
-
     @Override
     public List<GrantedAuthority> getAuthorities(){
         List<GrantedAuthority> authorities = new ArrayList<>();
-        roles.forEach(role -> authorities.add(new SimpleGrantedAuthority(role.toString())));
+        authorities.add(new SimpleGrantedAuthority(role.toString()));
         return authorities;
     }
+
 }
 
