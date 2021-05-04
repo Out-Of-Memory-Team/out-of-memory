@@ -17,4 +17,4 @@ CREATE TABLE IF NOT EXISTS oom.decktags
     TABLESPACE pg_default;
 
 ALTER TABLE oom.decktags
-    OWNER to postgres;
+    OWNER to oom;

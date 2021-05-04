@@ -7,4 +7,4 @@ CREATE TABLE IF NOT EXISTS oom.tag
     TABLESPACE pg_default;
 
 ALTER TABLE oom.tag
-    OWNER to postgres;
+    OWNER to oom;
