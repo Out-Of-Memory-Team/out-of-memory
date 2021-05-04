@@ -11,4 +11,4 @@ CREATE TABLE IF NOT EXISTS oom.appuser
     TABLESPACE pg_default;
 
 ALTER TABLE oom.appuser
-    OWNER to postgres;
+    OWNER to oom;
