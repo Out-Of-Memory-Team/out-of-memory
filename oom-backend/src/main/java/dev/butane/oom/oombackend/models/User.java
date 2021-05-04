@@ -1,6 +1,11 @@
 package dev.butane.oom.oombackend.models;
 
+import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+
 import com.sun.istack.NotNull;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,12 +13,20 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.*;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Table(name = "appuser")
 public class User implements UserDetails {
 
     @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Type(type = "pg-uuid")
+    @Column(name = "userId")
     @NotNull
-    private String userId;
+    private UUID userId;
 
     @NotNull
     private String username;
@@ -21,102 +34,15 @@ public class User implements UserDetails {
     private String email;
     private String firstName;
     private String lastName;
-
     private String password;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
     private boolean enabled;
-
+    
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     private List<Role> roles;
-
-    public User(String username, String firstName, String lastName, String email) {
-        this.userId = UUID.randomUUID().toString();
-        this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-    }
-
-    public User() {
-        this.userId = UUID.randomUUID().toString();
-        this.username = "";
-        this.firstName = "";
-        this.lastName = "";
-        this.email = "";
-        this.roles = new ArrayList<>();
-        this.accountNonExpired = true;
-        this.accountNonLocked = true;
-        this.credentialsNonExpired = true;
-        this.enabled = true;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    @Override
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return accountNonExpired;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return accountNonLocked;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return credentialsNonExpired;
-    }
 
     @Override
     public boolean isEnabled() {
@@ -133,10 +59,5 @@ public class User implements UserDetails {
         roles.forEach(role -> authorities.add(new SimpleGrantedAuthority(role.toString())));
         return authorities;
     }
-
-    public String toString() {
-        return "ID: " + userId + ", Username: " + username + ", Firstname: " + firstName + ", Lastname: " + lastName + ", Email: " + email;
-    }
-
 }
 

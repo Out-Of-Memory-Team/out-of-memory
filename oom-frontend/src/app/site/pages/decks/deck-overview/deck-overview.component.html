@@ -1,24 +1,35 @@
 <div class="page-shell">
+
   <div class="card">
     <div class="card-block">
       <div class="card-title">
         Decks
       </div>
       <div class="card-text">
-        Some description about this page. TBD
+        On this page you will find all of your decks. From here you can access them to be able to use and manage it's content.
       </div>
     </div>
   </div>
+
+  <div class="card">
+    <div class="card-block">
+      <button type="button" class="btn btn-icon btn-success" aria-label="done" [routerLink]="'new/edit'">
+        <clr-icon shape="plus"></clr-icon>
+        Add Deck
+      </button>
+    </div>
+  </div>
+
   <clr-datagrid>
     <clr-dg-column>Title</clr-dg-column>
     <clr-dg-column>Size</clr-dg-column>
     <clr-dg-column>Tags</clr-dg-column>
 
-    <clr-dg-row *clrDgItems="let deck of (deckBackend.getDecks() | async)" [clrDgItem]="deck" [routerLink]="deck.deckId">
+    <clr-dg-row *clrDgItems="let deck of decks" [clrDgItem]="deck" [routerLink]="deck.deckId">
       <clr-dg-cell class="entry-cell">{{deck.title}}</clr-dg-cell>
       <clr-dg-cell class="entry-cell">{{deck.flashcards | size}} card(s)</clr-dg-cell>
       <clr-dg-cell>
-        <span *ngFor="let tag of deck.tags" class="label label-purple">{{tag}}</span>
+        <span *ngFor="let tag of deck.tags" class="label label-purple">{{tag.name}}</span>
       </clr-dg-cell>
     </clr-dg-row>
 
@@ -29,4 +40,5 @@
       </clr-dg-pagination>
     </clr-dg-footer>
   </clr-datagrid>
+
 </div>

@@ -1,63 +1,41 @@
 package dev.butane.oom.oombackend.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.NotNull;
+import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.UUID;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Table(name = "flashcard")
 public class Flashcard {
 
-    // TODO: Instead of cardId, use UUID
     @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Type(type = "pg-uuid")
+    @Column(name = "cardId")
     @NotNull
-    private String cardId;
-
-    @NotNull
-    private final String title;
-
-    @NotNull
-    private final String front;
+    private UUID cardId;
 
     @NotNull
-    private final String back;
+    private String front;
 
-// TODO: Flashcard can be into a specific deck. So here we need a variable of type "Deck"
-// TODO: Who is the Maintainer + Collaboratos + Tags etc.
+    @NotNull
+    private String back;
 
-    public Flashcard(String title, String front, String back) {
-        this.cardId = UUID.randomUUID().toString();
-        this.title = title;
-        this.front = front;
-        this.back = back;
-    }
-
-    public Flashcard() {
-        this.title = "";
-        this.front = "";
-        this.back = "";
-    }
-
-    public String getCardId() {
-        return cardId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getFront() {
-        return front;
-    }
-
-    public String getBack() {
-        return back;
-    }
-
-    public String toString() {
-        return "ID: " + cardId + ", Title: " + title + ", Front: " + front + ", Back: " + back;
-    }
-
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "deckId")
+    @JsonIgnore
+    private Deck deck;
 }
 

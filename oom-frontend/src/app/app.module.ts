@@ -18,6 +18,7 @@ import {ToastrModule} from "ngx-toastr";
 import {TagsModule} from "./shared/modules/tags/tags.module";
 import {DialogModule} from "./core/dialog/dialog.module";
 import { AuthInterceptor } from './core/auth/auth.interceptor';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { AuthInterceptor } from './core/auth/auth.interceptor';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     ClarityModule,
     BrowserAnimationsModule,
     QuillModule.forRoot(),

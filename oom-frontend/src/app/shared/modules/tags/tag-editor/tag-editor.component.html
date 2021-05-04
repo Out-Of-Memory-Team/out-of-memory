@@ -1,5 +1,5 @@
 <span *ngFor="let tag of tags; let i = index" class="label" [ngClass]="selected === i ? 'lable-light-blue' : 'clickable'" (click)="select(i)">
-  {{tag}}
+  {{tag.name}}
   <span *ngIf="selected === i" class="badge badge-light-blue" (click)="delete(i)">x</span>
 </span>
 
@@ -10,7 +10,7 @@
   <div class="modal-body">
     <form clrForm clrLayout="vertical">
       <clr-input-container>
-        <input placeholder="New tag..." clrInput [(ngModel)]="newTag" name="name" required />
+        <input placeholder="New tag..." clrInput [(ngModel)]="newTagName" name="name" required />
         <clr-control-error *clrIfError="'required'">This field is required!</clr-control-error>
         <clr-control-error *clrIfError="'alreadyExists'">The tag already exists!</clr-control-error>
       </clr-input-container>
