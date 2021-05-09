@@ -17,7 +17,7 @@ export class SigninComponent implements OnInit {
   }
 
   submit(): void {
-    this.authService.login(this.form).subscribe(x => console.log(x));
+    this.authService.login(this.form).subscribe(); //TODO: handle login success/fail
   }
 
 }
