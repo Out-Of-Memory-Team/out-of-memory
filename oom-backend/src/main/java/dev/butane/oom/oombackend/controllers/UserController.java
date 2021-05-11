@@ -1,11 +1,8 @@
 package dev.butane.oom.oombackend.controllers;
 
 import dev.butane.oom.oombackend.models.User;
-import dev.butane.oom.oombackend.models.dto.UserDTO;
 import dev.butane.oom.oombackend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,9 +51,13 @@ public class UserController {
 
     // Creates or Update an user
     @PutMapping("/users")
-    public User createOrUpdateUser(@RequestBody UserDTO user) {
+    public User createOrUpdateUser(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(UserDTO.map(user));
+        user.setAccountNonExpired(true);
+        user.setAccountNonLocked(true);
+        user.setEnabled(true);
+        user.setCredentialsNonExpired(true);
+        return userRepository.save(user/*UserDTO.map(user)*/);
     }
     
     // Deletes user by Id
