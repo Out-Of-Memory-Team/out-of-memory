@@ -15,8 +15,13 @@
   <div class="header-actions">
     <clr-dropdown>
       <button class="nav-text" clrDropdownTrigger aria-label="open user profile">
-        peter.silie@butane.dev
-        <clr-icon shape="caret down"></clr-icon>
+        <div *ngIf="authService.currentUser">
+          {{authService.currentUser.username}}
+          <clr-icon shape="caret down"></clr-icon>
+        </div>
+        <div *ngIf="authService.currentUser===undefined">
+          <a href="/auth/signin">Log-In</a>
+        </div>
       </button>
       <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
         <a href="/auth/user" clrDropdownItem>Preferences</a>

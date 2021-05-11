@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import {Observable, of} from 'rxjs';
 import { tap } from "rxjs/operators";
 import { User } from './../../shared/models/user.model';
 import { SigninInfoDTO } from './../../shared/models/dto/SigninInfoDTO.model';
@@ -12,6 +12,8 @@ import {SignUpDTO} from "../../shared/models/dto/SignUpDTO.model";
 export class AuthService {
 
   private readonly ENDPOINT = 'http://localhost:8080/';
+
+  public currentUser: User;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -33,5 +35,6 @@ export class AuthService {
 
   private setSession(authResult) {
     localStorage.setItem('id_token', authResult.headers.get('Authorization'));
+    this.httpClient.get<User>(this.ENDPOINT + 'user').subscribe(user => this.currentUser = user);
   }
 }

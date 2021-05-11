@@ -26,8 +26,8 @@
         <label class="clr-sr-only">Password</label>
         <input type="password" name="password" clrPassword placeholder="Password" [(ngModel)]="form.password"/>
       </clr-password-container>
-      <div class="error active">
-        Invalid user name or password
+      <div class="error active" *ngIf="registerFail">
+        Invalid username or email
       </div>
       <button type="submit" (click)="submit()" class="btn btn-primary">Submit</button>
       <a [routerLink]="'/auth/signin'" class="signup">SignIn</a>

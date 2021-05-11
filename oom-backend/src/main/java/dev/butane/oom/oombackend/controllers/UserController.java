@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -34,9 +35,21 @@ public class UserController {
     }
 
     // Get user by Id
-    @GetMapping("/user/{id}")
+    @GetMapping("/users/{id}")
     public Optional<User> getUser(@PathVariable UUID id) {
         return userRepository.findById(id);
+    }
+
+    // Get user by username
+    @GetMapping("/users/name/{username}")
+    public Optional<User> getUserbyUsername(@PathVariable String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    // Get current user
+    @GetMapping("/user")
+    public Optional<User> getCurrentUser(Principal principal) {
+        return userRepository.findById(UUID.fromString(principal.getName()));
     }
 
     // Creates or Update an user
