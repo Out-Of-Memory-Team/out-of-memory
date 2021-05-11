@@ -43,8 +43,7 @@
           </div>
           <div class="clr-col-9">
             <span class="p4">Collaborators</span><br>
-            <span *ngIf="deck.collaborators.length === 0">no collaborators</span>
-            <span *ngFor="let user of deck.collaborators" class="label label-purple">{{user.username}}</span>
+            <collaborator-editor [(collaborators)]="deck.collaborators"></collaborator-editor>
           </div>
         </div>
       </div>

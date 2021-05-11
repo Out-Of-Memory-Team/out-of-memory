@@ -1,0 +1,19 @@
+import { Injectable } from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
+import {Flashcard} from "../../shared/models/flashcard.model";
+import {User} from "../../shared/models/user.model";
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UsersBackendService {
+
+  private readonly ENDPOINT = 'http://localhost:8080/users';
+
+  constructor(private http: HttpClient) { }
+
+  getUserByUsername(username: string): Observable<User> {
+    return this.http.get<User>(this.ENDPOINT+"/name/"+username);
+  }
+}
