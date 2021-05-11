@@ -5,19 +5,4 @@
 
 <button class="btn btn-link" (click)="triggerAddModal()"><clr-icon shape="plus"></clr-icon></button>
 
-<clr-modal [(clrModalOpen)]="addModal" [clrModalSize]="'sm'">
-  <h3 class="modal-title">Add collaborator</h3>
-  <div class="modal-body">
-    <form clrForm clrLayout="vertical">
-      <clr-input-container>
-        <input placeholder="New collaborator..." clrInput [(ngModel)]="newCollaboratorName" name="name" required />
-        <clr-control-error *clrIfError="'required'">This field is required!</clr-control-error>
-        <clr-control-error *clrIfError="'alreadyExists'">The tag already exists!</clr-control-error>
-      </clr-input-container>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline" (click)="closeAddModal()">Cancel</button>
-    <button type="button" class="btn btn-primary" (click)="submitAddModal()">Add</button>
-  </div>
-</clr-modal>
+<user-finder [openModal]="openModal" (userSelect)="add($event)"></user-finder>

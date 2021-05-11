@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
+@CrossOrigin()
 public class UserController {
 
     private final UserRepository userRepository;
@@ -40,4 +41,10 @@ public class UserController {
     // Deletes user by Id
     @DeleteMapping("/users/{id}")
     public void deleteUser(@PathVariable UUID id) { userRepository.deleteById(id); }
+
+    // Get users by query
+    @GetMapping("/users/query/{keyword}")
+    public Optional<String[]> getUser(@PathVariable String keyword) {
+        return userRepository.findByKeyword(keyword);
+    }
 }

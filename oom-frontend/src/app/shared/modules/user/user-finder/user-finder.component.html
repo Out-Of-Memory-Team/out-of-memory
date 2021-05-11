@@ -1,0 +1,18 @@
+<clr-modal [(clrModalOpen)]="openModal" [clrModalSize]="'sm'">
+  <h3 class="modal-title">Add collaborator</h3>
+  <div class="modal-body">
+    <form clrForm clrLayout="vertical">
+      <clr-datalist-container>
+        <input (keyup)="changeInput()" placeholder="Search for User..." minlength="4" name="User" required clrDatalistInput />
+        <datalist>
+          <option *ngFor="let sugg of suggestions" [value]="sugg"></option>
+        </datalist>
+        <clr-control-error>There was an error</clr-control-error>
+      </clr-datalist-container>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="closeModal()">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="submitModal()">Add</button>
+  </div>
+</clr-modal>

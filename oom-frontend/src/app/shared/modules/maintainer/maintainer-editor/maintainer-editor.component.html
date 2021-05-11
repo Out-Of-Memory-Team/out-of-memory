@@ -1,0 +1,7 @@
+<span class="label" *ngIf="user">
+  {{user.username}}
+</span>
+
+<button class="btn btn-link" (click)="triggerEdit()"><clr-icon shape="edit"></clr-icon></button>
+
+<user-finder [(openModal)]="openEdit" (userSelect)="save($event)"></user-finder>

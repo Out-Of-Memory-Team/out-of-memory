@@ -13,4 +13,13 @@ import java.util.UUID;
 @Repository
 public interface UserRepository extends CrudRepository<User, UUID> {
     Optional<User> findByUsername (String username);
+
+    @Query(
+            "SELECT u.username FROM User u WHERE u.username LIKE %?1%"
+                    + "OR u.firstName LIKE %?1%"
+                    + "OR u.firstName LIKE %?1%"
+                    + "OR CONCAT(u.firstName, u.lastName) LIKE %?1%"
+                    + "OR u.email LIKE %?1%"
+    )
+    Optional<String[]> findByKeyword(String keyword);
 }
