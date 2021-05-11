@@ -10,10 +10,14 @@ import {Observable} from "rxjs";
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private authService: AuthService) {
+  constructor(public authService: AuthService) {
   }
 
   ngOnInit(): void {
+  }
+
+  logout(): void {
+    this.authService.logout();
   }
 
 }
