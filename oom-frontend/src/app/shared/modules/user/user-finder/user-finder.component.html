@@ -1,9 +1,9 @@
 <clr-modal [(clrModalOpen)]="openModal" [clrModalSize]="'sm'">
-  <h3 class="modal-title">Add collaborator</h3>
+  <h3 class="modal-title">{{title}}</h3>
   <div class="modal-body">
     <form clrForm clrLayout="vertical">
       <clr-datalist-container>
-        <input (keyup)="changeInput()" placeholder="Search for User..." minlength="4" name="User" required clrDatalistInput />
+        <input (keyup)="changeInput()" placeholder="Search for user..." minlength="4" name="User" required clrDatalistInput />
         <datalist>
           <option *ngFor="let sugg of suggestions" [value]="sugg"></option>
         </datalist>

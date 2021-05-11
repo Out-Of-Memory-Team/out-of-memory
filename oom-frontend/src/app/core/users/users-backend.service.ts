@@ -18,12 +18,6 @@ export class UsersBackendService {
   }
 
   getUserByKeyword(keyword: string): Observable<string[]> {
-    return of([
-      "test",
-      "Test",
-      "1234",
-      "testuser",
-      "testuser2"
-    ]);//this.http.get<string[]>(this.ENDPOINT+"/query/"+keyword);
+    return this.http.get<string[]>(this.ENDPOINT+"/query/"+keyword);
   }
 }

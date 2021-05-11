@@ -5,4 +5,4 @@
 
 <button class="btn btn-link" (click)="triggerAddModal()"><clr-icon shape="plus"></clr-icon></button>
 
-<user-finder [openModal]="openModal" (userSelect)="add($event)"></user-finder>
+<user-finder [openModal]="openModal" [title]="'Add collaborator'" (userSelect)="add($event)"></user-finder>

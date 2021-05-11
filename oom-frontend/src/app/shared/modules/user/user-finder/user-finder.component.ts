@@ -14,6 +14,8 @@ export class UserFinderComponent implements OnInit {
 
   @Input()
   openModal: boolean;
+  @Input()
+  title: string;
 
   @Output()
   userSelect: EventEmitter<User> = new EventEmitter<User>();
