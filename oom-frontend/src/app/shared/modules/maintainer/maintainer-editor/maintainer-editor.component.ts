@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {User} from "../../../models/user.model";
 
 @Component({
@@ -9,6 +9,7 @@ import {User} from "../../../models/user.model";
 export class MaintainerEditorComponent implements OnInit {
 
   @Input() user: User = new User();
+  @Output() userChange: EventEmitter<User> = new EventEmitter<User>();
 
   newMaintainerName: String = "";
   openEdit: boolean;
@@ -24,5 +25,6 @@ export class MaintainerEditorComponent implements OnInit {
 
   save(user: User){
     this.user = user;
+    this.userChange.emit(user);
   }
 }

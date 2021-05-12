@@ -2,6 +2,7 @@ package dev.butane.oom.oombackend.controllers;
 
 import dev.butane.oom.oombackend.models.User;
 import dev.butane.oom.oombackend.repositories.UserRepository;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +28,7 @@ public class UserController {
     }
 
     // Get user by Id
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/user/{id}")
     public Optional<User> getUser(@PathVariable UUID id) {
         return userRepository.findById(id);
@@ -39,12 +41,21 @@ public class UserController {
     }
     
     // Deletes user by Id
+    @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("/users/{id}")
     public void deleteUser(@PathVariable UUID id) { userRepository.deleteById(id); }
 
     // Get users by query
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/users/query/{keyword}")
-    public Optional<String[]> getUser(@PathVariable String keyword) {
-        return userRepository.findByKeyword(keyword);
+    public Optional<List<String[]>> getUserByKeyword(@PathVariable String keyword) {
+        return userRepository.findByKeyword(keyword, PageRequest.of(0,5));
+    }
+
+    // Get users by username
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/users/name/{name}")
+    public Optional<User> getUserByUsername(@PathVariable String name) {
+        return userRepository.findByUsername(name);
     }
 }

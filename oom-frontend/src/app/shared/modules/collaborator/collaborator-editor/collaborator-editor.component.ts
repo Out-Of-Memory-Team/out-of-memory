@@ -17,7 +17,7 @@ export class CollaboratorEditorComponent {
   @Output() collaboratorAdd: EventEmitter<User> = new EventEmitter<User>();
 
   selected: number = -1;
-  openModal: boolean = false;
+  openAdd: boolean = false;
   newCollaboratorName: string;
 
   constructor(private usersBackend: UsersBackendService) { }
@@ -34,19 +34,13 @@ export class CollaboratorEditorComponent {
   }
 
   add(collaborator: User): void {
-    this.openModal = false;
     this.collaborators.push(collaborator);
     this.collaboratorsChange.emit(this.collaborators);
     this.collaboratorAdd.emit(collaborator);
   }
 
   triggerAddModal(): void {
-    this.openModal = true;
-  }
-
-  closeAddModal(): void {
-    this.openModal = false;
-    this.newCollaboratorName = '';
+    this.openAdd = true;
   }
 
   submitAddModal(): void {
@@ -55,7 +49,6 @@ export class CollaboratorEditorComponent {
 
     this.usersBackend.getUserByUsername(this.newCollaboratorName).subscribe(user => {
       this.add(user);
-      this.closeAddModal();
     })
   }
 }

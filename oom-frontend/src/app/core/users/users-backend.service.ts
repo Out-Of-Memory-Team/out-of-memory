@@ -17,7 +17,7 @@ export class UsersBackendService {
     return this.http.get<User>(this.ENDPOINT+"/name/"+username);
   }
 
-  getUserByKeyword(keyword: string): Observable<string[]> {
-    return this.http.get<string[]>(this.ENDPOINT+"/query/"+keyword);
+  getUserByKeyword(keyword: string): Observable<string[][]> {
+    return this.http.get<string[][]>(this.ENDPOINT+"/query/"+keyword);
   }
 }

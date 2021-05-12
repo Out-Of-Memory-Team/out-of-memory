@@ -25,11 +25,16 @@ export class DecksBackendService {
   }
 
   createOrUpdateDeck(newDeck: Deck): Observable<Deck> {
-    /*for(let colab of newDeck.collaborators) {
+    //WHYYYY
+    for(let colab of (newDeck.collaborators as any)) {
       if(colab.authorities != undefined) {
-        delete newDeck.collaborators[0].authorities;
+        delete colab.authorities;
       }
-    }*/
+    }
+
+    let maint = newDeck.maintainer as any;
+    delete maint.authorities;
+
     return this.http.put<Deck>(this.ENDPOINT, newDeck);
   }
 

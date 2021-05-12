@@ -10,10 +10,13 @@ import {User} from "../../../models/user.model";
 export class UserFinderComponent implements OnInit {
 
   keyword: string = '';
-  suggestions: string[] = [];
+  suggestions: string[][] = [];
 
   @Input()
   openModal: boolean;
+
+  @Output() openModalChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   @Input()
   title: string;
 
@@ -27,14 +30,25 @@ export class UserFinderComponent implements OnInit {
 
   closeModal() {
     this.openModal = false;
+    this.openModalChange.emit(false)
     this.keyword = '';
   }
 
   submitModal() {
-    this.usersService.getUserByUsername(this.keyword).subscribe(res => this.userSelect.emit(res));
+    this.usersService.getUserByUsername(this.keyword).subscribe(res => {
+      if(res) {
+        this.userSelect.emit(res)
+        this.closeModal()
+      } else {
+        this.keyword = '';
+      }
+    }, err => {
+      this.keyword = '';
+    });
   }
 
   changeInput() {
-    this.usersService.getUserByKeyword(this.keyword).subscribe(res => this.suggestions = res);
+    if(this.keyword.length > 3)
+      this.usersService.getUserByKeyword(this.keyword).subscribe(res => this.suggestions = res);
   }
 }

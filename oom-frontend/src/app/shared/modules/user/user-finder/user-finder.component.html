@@ -1,13 +1,13 @@
-<clr-modal [(clrModalOpen)]="openModal" [clrModalSize]="'sm'">
+<clr-modal [(clrModalOpen)]="openModal" [clrModalSize]="'sm'" [clrModalClosable]="false" >
   <h3 class="modal-title">{{title}}</h3>
   <div class="modal-body">
     <form clrForm clrLayout="vertical">
       <clr-datalist-container>
-        <input (keyup)="changeInput()" placeholder="Search for user..." minlength="4" name="User" required clrDatalistInput />
+        <input (keyup)="changeInput()" [(ngModel)]="keyword" placeholder="Search for user..." minlength="4" name="User" clrDatalistInput required/>
+        <clr-control-error>User not found!</clr-control-error>
         <datalist>
-          <option *ngFor="let sugg of suggestions" [value]="sugg"></option>
+          <option *ngFor="let sugg of suggestions" [value]="sugg[0]" >{{sugg[1]}}</option>
         </datalist>
-        <clr-control-error>There was an error</clr-control-error>
       </clr-datalist-container>
     </form>
   </div>
