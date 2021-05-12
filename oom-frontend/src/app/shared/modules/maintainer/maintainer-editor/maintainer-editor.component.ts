@@ -11,7 +11,6 @@ export class MaintainerEditorComponent implements OnInit {
   @Input() user: User = new User();
   @Output() userChange: EventEmitter<User> = new EventEmitter<User>();
 
-  newMaintainerName: String = "";
   openEdit: boolean;
 
   constructor() { }
@@ -23,7 +22,7 @@ export class MaintainerEditorComponent implements OnInit {
     this.openEdit = true;
   }
 
-  save(user: User){
+  change(user: User){
     this.user = user;
     this.userChange.emit(user);
   }
