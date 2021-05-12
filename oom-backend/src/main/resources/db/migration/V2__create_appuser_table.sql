@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS oom.appuser
     firstname character varying(50) COLLATE pg_catalog."default",
     email text COLLATE pg_catalog."default" NOT NULL,
     lastname character varying(50) COLLATE pg_catalog."default",
-    password character varying(50) COLLATE pg_catalog."default",
+    password character varying(100) COLLATE pg_catalog."default",
     accountNonExpired boolean,
     accountNonLocked boolean,
     credentialsNonExpired boolean,
