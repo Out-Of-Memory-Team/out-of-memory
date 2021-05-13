@@ -31,10 +31,15 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('id_token');
+    this.checkForLogin();
   }
 
   private setSession(authResult) {
     localStorage.setItem('id_token', authResult.headers.get('Authorization'));
-    this.httpClient.get<User>(this.ENDPOINT + 'user').subscribe(user => this.currentUserSource.next(user));
+    this.checkForLogin();
+  }
+
+  checkForLogin() {
+    this.httpClient.get<User>(this.ENDPOINT + 'user').subscribe(user => this.currentUserSource.next(user), error => this.currentUserSource.next(null));
   }
 }
