@@ -10,10 +10,13 @@ import {Observable} from "rxjs";
 })
 export class HeaderComponent implements OnInit {
 
+  currentUser: User;
+
   constructor(public authService: AuthService) {
   }
 
   ngOnInit(): void {
+    this.authService.currentUser.subscribe(user => this.currentUser = user);
   }
 
   logout(): void {

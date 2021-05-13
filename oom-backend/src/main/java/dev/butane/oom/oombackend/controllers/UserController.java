@@ -1,5 +1,6 @@
 package dev.butane.oom.oombackend.controllers;
 
+import dev.butane.oom.oombackend.models.Role;
 import dev.butane.oom.oombackend.models.User;
 import dev.butane.oom.oombackend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,11 +54,12 @@ public class UserController {
     @PutMapping("/users")
     public User createOrUpdateUser(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(Role.USER);
         user.setAccountNonExpired(true);
         user.setAccountNonLocked(true);
         user.setEnabled(true);
         user.setCredentialsNonExpired(true);
-        return userRepository.save(user/*UserDTO.map(user)*/);
+        return userRepository.save(user);
     }
     
     // Deletes user by Id
