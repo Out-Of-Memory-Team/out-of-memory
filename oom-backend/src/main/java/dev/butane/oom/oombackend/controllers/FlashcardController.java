@@ -38,6 +38,8 @@ public class FlashcardController {
     @PutMapping("/cards")
     public FlashcardDTO createOrUpdateFlashcard(@RequestBody FlashcardDTO card) {
         Deck deck = deckRepository.findById(card.getDeckId()).orElseThrow(RuntimeException::new);
+        if(card.getIndex()==-1)
+            card.setIndex(deck.getFlashcards().size());
         return FlashcardDTO.map(flashcardRepository.save(card.apply(deck)));
     }
 

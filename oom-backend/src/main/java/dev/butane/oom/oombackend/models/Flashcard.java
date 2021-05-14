@@ -37,5 +37,8 @@ public class Flashcard {
     @JoinColumn(name = "deckId")
     @JsonIgnore
     private Deck deck;
+
+    @NotNull
+    private int index;
 }
 

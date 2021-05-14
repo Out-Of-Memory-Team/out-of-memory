@@ -45,6 +45,7 @@ public class Deck {
     private Set<User> collaborators = new HashSet<User>();
 
     @OneToMany(mappedBy = "deck", cascade = {CascadeType.ALL})
+    @OrderBy("index ASC")
     private List<Flashcard> flashcards = new ArrayList<Flashcard>();
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})

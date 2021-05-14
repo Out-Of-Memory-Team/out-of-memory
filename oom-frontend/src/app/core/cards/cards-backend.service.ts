@@ -17,7 +17,7 @@ export class CardsBackendService {
     return this.http.get<Flashcard>(this.ENDPOINT+"/"+id);
   }
 
-  createOrUpdateDeck(newCard: Flashcard): Observable<Flashcard> {
+  createOrUpdateCard(newCard: Flashcard): Observable<Flashcard> {
     return this.http.put<Flashcard>(this.ENDPOINT, newCard);
   }
 

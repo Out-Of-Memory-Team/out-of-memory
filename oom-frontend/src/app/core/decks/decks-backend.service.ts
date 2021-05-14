@@ -33,7 +33,9 @@ export class DecksBackendService {
     }
 
     let maint = newDeck.maintainer as any;
-    delete maint.authorities;
+    if(maint != undefined){
+      delete maint.authorities;
+    }
 
     return this.http.put<Deck>(this.ENDPOINT, newDeck);
   }

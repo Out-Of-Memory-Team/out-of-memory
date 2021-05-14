@@ -8,6 +8,7 @@ import {CardsBackendService} from "../../../../core/cards/cards-backend.service"
 import {ToastrService} from "ngx-toastr";
 import {DialogService} from "../../../../core/dialog/dialog.service";
 import {DialogType} from "../../../../core/dialog/dialog-data/dialog-type.enum";
+import {Flashcard} from "../../../../shared/models/flashcard.model";
 
 @Component({
   selector: 'page-deck-detail',
@@ -70,6 +71,31 @@ export class DeckDetailComponent implements OnInit, OnDestroy {
           e => this.toastr.error("Flashcard could not be deleted.", "Failed!")
         );
     });
+  }
+
+  moveCardUp(index) {
+    if(index > 0) {
+      this.deck.flashcards[index].index = index - 1;
+      this.deck.flashcards[index-1].index = index;
+      [this.deck.flashcards[index-1], this.deck.flashcards[index]] = [this.deck.flashcards[index], this.deck.flashcards[index-1]];
+      this.updateCards([this.deck.flashcards[index-1], this.deck.flashcards[index]]);
+    }
+  }
+
+  moveCardDown(index) {
+    if(index < this.deck.flashcards.length - 1) {
+      this.deck.flashcards[index].index = index + 1;
+      this.deck.flashcards[index+1].index = index;
+      [this.deck.flashcards[index], this.deck.flashcards[index+1]] = [this.deck.flashcards[index+1], this.deck.flashcards[index]];
+      this.updateCards([this.deck.flashcards[index], this.deck.flashcards[index+1]]);
+    }
+  }
+
+  updateCards(cards: Flashcard[]){
+    for(let card of cards) {
+      card.deckId = this.deck.deckId;
+      this.cardBackend.createOrUpdateCard(card).subscribe(res => console.log(res));
+    }
   }
 
   deleteDeck() {

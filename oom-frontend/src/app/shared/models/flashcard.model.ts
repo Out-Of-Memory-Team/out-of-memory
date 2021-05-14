@@ -10,4 +10,5 @@ export class Flashcard {
   deckId?: string;
   front: string;
   back: string;
+  index: number = -1;
 }
