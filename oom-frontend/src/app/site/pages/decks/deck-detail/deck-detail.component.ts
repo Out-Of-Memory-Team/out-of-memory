@@ -93,8 +93,7 @@ export class DeckDetailComponent implements OnInit, OnDestroy {
 
   updateCards(cards: Flashcard[]){
     for(let card of cards) {
-      card.deckId = this.deck.deckId;
-      this.cardBackend.createOrUpdateCard(card).subscribe(res => console.log(res));
+      this.cardBackend.createOrUpdateCard(card).subscribe();
     }
   }
 
