@@ -33,7 +33,29 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        UsernamePasswordAuthenticationToken authentication = parseToken(request);
+        UsernamePasswordAuthenticationToken authentication = null;
+
+        String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+        if (token != null && token.startsWith("Bearer ")) {
+            String claims = token.replace("Bearer ", "");
+            try {
+                Jws<Claims> claimsJws = Jwts
+                        .parserBuilder().setSigningKey(jwtSecret.getBytes())
+                        .build().parseClaimsJws(claims);
+
+                String username = claimsJws.getBody().getSubject();
+
+                if (username.isEmpty() || username == null) {
+                    authentication = null;
+                }
+
+                //TODO: roles here!
+
+                authentication = new UsernamePasswordAuthenticationToken(username, null, null);
+            } catch (JwtException exception) {
+
+            }
+        }
 
         if (authentication != null) {
             SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -42,33 +64,5 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         }
 
         chain.doFilter(request, response);
-    }
-
-    private UsernamePasswordAuthenticationToken parseToken(HttpServletRequest request) {
-        String token = request.getHeader(HttpHeaders.AUTHORIZATION);
-        if (token != null && token.startsWith("Bearer ")) {
-            String claims = token.replace("Bearer ", "");
-            try {
-                Jws<Claims> claimsJws = Jwts
-                        .parserBuilder().setSigningKey(jwtSecret.getBytes())
-                        .build().parseClaimsJws(claims);
-                        //.parser().setSigningKey(jwtSecret.getBytes())
-                        //.parseClaimsJws(claims);
-
-                String username = claimsJws.getBody().getSubject();
-
-                if (username.isEmpty() || username == null) {
-                    return null;
-                }
-
-                // TODO roles here!
-
-                return new UsernamePasswordAuthenticationToken(username, null, null);
-            } catch (JwtException exception) {
-
-            }
-        }
-
-        return null;
     }
 }
