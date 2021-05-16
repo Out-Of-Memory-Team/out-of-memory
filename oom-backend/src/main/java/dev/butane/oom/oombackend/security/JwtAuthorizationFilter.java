@@ -33,7 +33,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        UsernamePasswordAuthenticationToken authentication = parseToken(request);
+        String token = getToken(request);
+        UsernamePasswordAuthenticationToken authentication = parseToken(token);
 
         if (authentication != null) {
             SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -44,12 +45,11 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         chain.doFilter(request, response);
     }
 
-    private UsernamePasswordAuthenticationToken parseToken(HttpServletRequest request) {
-        String claims = getToken(request);
+    private UsernamePasswordAuthenticationToken parseToken(String token) {
         try {
             Jws<Claims> claimsJws = Jwts
                     .parserBuilder().setSigningKey(jwtSecret.getBytes())
-                    .build().parseClaimsJws(claims);
+                    .build().parseClaimsJws(token);
 
             String username = claimsJws.getBody().getSubject();
 
