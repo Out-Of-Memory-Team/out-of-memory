@@ -45,28 +45,31 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     }
 
     private UsernamePasswordAuthenticationToken parseToken(HttpServletRequest request) {
+        String claims = getToken(request);
+        try {
+            Jws<Claims> claimsJws = Jwts
+                    .parserBuilder().setSigningKey(jwtSecret.getBytes())
+                    .build().parseClaimsJws(claims);
+
+            String username = claimsJws.getBody().getSubject();
+
+            if (username.isEmpty() || username == null) {
+                return null;
+            }
+
+            //TODO: roles here!
+
+            return new UsernamePasswordAuthenticationToken(username, null, null);
+        } catch (JwtException exception) {
+            return null;
+        }
+    }
+
+    private String getToken(HttpServletRequest request) {
         String token = request.getHeader(HttpHeaders.AUTHORIZATION);
         if (token != null && token.startsWith("Bearer ")) {
-            String claims = token.replace("Bearer ", "");
-            try {
-                Jws<Claims> claimsJws = Jwts
-                        .parserBuilder().setSigningKey(jwtSecret.getBytes())
-                        .build().parseClaimsJws(claims);
-
-                String username = claimsJws.getBody().getSubject();
-
-                if (username.isEmpty() || username == null) {
-                    return null;
-                }
-
-                //TODO: roles here!
-
-                return new UsernamePasswordAuthenticationToken(username, null, null);
-            } catch (JwtException exception) {
-
-            }
+            return token.replace("Bearer ", "");
         }
-
         return null;
     }
 }
