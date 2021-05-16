@@ -33,8 +33,18 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        UsernamePasswordAuthenticationToken authentication = null;
+        UsernamePasswordAuthenticationToken authentication = parseToken(request);
 
+        if (authentication != null) {
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        } else {
+            SecurityContextHolder.clearContext();
+        }
+
+        chain.doFilter(request, response);
+    }
+
+    private UsernamePasswordAuthenticationToken parseToken(HttpServletRequest request) {
         String token = request.getHeader(HttpHeaders.AUTHORIZATION);
         if (token != null && token.startsWith("Bearer ")) {
             String claims = token.replace("Bearer ", "");
@@ -46,23 +56,17 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
                 String username = claimsJws.getBody().getSubject();
 
                 if (username.isEmpty() || username == null) {
-                    authentication = null;
+                    return null;
                 }
 
                 //TODO: roles here!
 
-                authentication = new UsernamePasswordAuthenticationToken(username, null, null);
+                return new UsernamePasswordAuthenticationToken(username, null, null);
             } catch (JwtException exception) {
 
             }
         }
 
-        if (authentication != null) {
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-        } else {
-            SecurityContextHolder.clearContext();
-        }
-
-        chain.doFilter(request, response);
+        return null;
     }
 }
