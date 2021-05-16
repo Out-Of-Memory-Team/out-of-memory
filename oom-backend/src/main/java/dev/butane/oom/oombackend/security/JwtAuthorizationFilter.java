@@ -15,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
@@ -35,16 +36,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         UsernamePasswordAuthenticationToken authentication = parseToken(request);
 
-        if (authentication != null) {
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-        } else {
-            SecurityContextHolder.clearContext();
-        }
-
-        chain.doFilter(request, response);
-    }
-
-    private UsernamePasswordAuthenticationToken parseToken(HttpServletRequest request) {
         String token = request.getHeader(HttpHeaders.AUTHORIZATION);
         if (token != null && token.startsWith("Bearer ")) {
             String claims = token.replace("Bearer ", "");
@@ -52,23 +43,27 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
                 Jws<Claims> claimsJws = Jwts
                         .parserBuilder().setSigningKey(jwtSecret.getBytes())
                         .build().parseClaimsJws(claims);
-                        //.parser().setSigningKey(jwtSecret.getBytes())
-                        //.parseClaimsJws(claims);
 
                 String username = claimsJws.getBody().getSubject();
 
                 if (username.isEmpty() || username == null) {
-                    return null;
+                    authentication = null;
                 }
 
                 // TODO roles here!
 
-                return new UsernamePasswordAuthenticationToken(username, null, null);
+                authentication = new UsernamePasswordAuthenticationToken(username, null, null);
             } catch (JwtException exception) {
-
+                authentication = null;
             }
         }
 
-        return null;
+        if (authentication != null) {
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        } else {
+            SecurityContextHolder.clearContext();
+        }
+
+        chain.doFilter(request, response);
     }
 }
