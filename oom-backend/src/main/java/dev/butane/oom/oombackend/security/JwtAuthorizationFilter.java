@@ -34,8 +34,9 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         String token = getToken(request);
-        UsernamePasswordAuthenticationToken authentication = parseToken(token);
-
+        String username = parseToken(token);
+        UsernamePasswordAuthenticationToken authentication = getUsernamePasswordAuth(username);
+        
         if (authentication != null) {
             SecurityContextHolder.getContext().setAuthentication(authentication);
         } else {
@@ -45,21 +46,13 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         chain.doFilter(request, response);
     }
 
-    private UsernamePasswordAuthenticationToken parseToken(String token) {
+    private String parseToken(String token) {
         try {
             Jws<Claims> claimsJws = Jwts
                     .parserBuilder().setSigningKey(jwtSecret.getBytes())
                     .build().parseClaimsJws(token);
 
-            String username = claimsJws.getBody().getSubject();
-
-            if (username.isEmpty() || username == null) {
-                return null;
-            }
-
-            //TODO: roles here!
-
-            return new UsernamePasswordAuthenticationToken(username, null, null);
+            return claimsJws.getBody().getSubject();
         } catch (JwtException exception) {
             return null;
         }
@@ -71,5 +64,15 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             return token.replace("Bearer ", "");
         }
         return null;
+    }
+
+    private UsernamePasswordAuthenticationToken getUsernamePasswordAuth(String username) {
+        if (username.isEmpty() || username == null) {
+            return null;
+        }
+
+        //TODO: roles here!
+
+        return new UsernamePasswordAuthenticationToken(username, null, null);
     }
 }
