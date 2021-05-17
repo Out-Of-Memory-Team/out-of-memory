@@ -13,46 +13,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.*;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
-@Table(name = "appuser")
-public class User implements UserDetails {
-
-    @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Type(type = "pg-uuid")
-    @Column(name = "userId")
-    @NotNull
-    private UUID userId;
-
-    @NotNull
-    private String username;
-    @NotNull
-    private String email;
-    private String firstName;
-    private String lastName;
-    private String password;
-    private boolean accountNonExpired;
-    private boolean accountNonLocked;
-    private boolean credentialsNonExpired;
-    private boolean enabled;
-    @Enumerated(EnumType.STRING)
-    private Role role;
+public interface User extends UserDetails {
 
     @Override
-    public boolean isEnabled() {
-        return true;
-    }
+    public boolean isEnabled();
 
     @Override
-    public List<GrantedAuthority> getAuthorities(){
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(role.toString()));
-        return authorities;
-    }
+    public List<GrantedAuthority> getAuthorities();
 
 }
 
