@@ -12,7 +12,7 @@ import {Flashcard} from "../../shared/models/flashcard.model";
 })
 export class DecksBackendService {
 
-  private readonly ENDPOINT = 'http://localhost:8080/decks';
+  private readonly ENDPOINT = '/api/decks';
 
   constructor(private http: HttpClient) {}
 
@@ -25,16 +25,6 @@ export class DecksBackendService {
   }
 
   createOrUpdateDeck(newDeck: Deck): Observable<Deck> {
-    //WHYYYY
-    for(let colab of (newDeck.collaborators as any)) {
-      if(colab.authorities != undefined) {
-        delete colab.authorities;
-      }
-    }
-
-    let maint = newDeck.maintainer as any;
-    delete maint.authorities;
-
     return this.http.put<Deck>(this.ENDPOINT, newDeck);
   }
 

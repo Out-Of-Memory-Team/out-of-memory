@@ -3,7 +3,6 @@ package dev.butane.oom.oombackend.controllers;
 import dev.butane.oom.oombackend.models.User;
 import dev.butane.oom.oombackend.repositories.UserRepository;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,7 +10,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@CrossOrigin()
 public class UserController {
 
     private final UserRepository userRepository;
