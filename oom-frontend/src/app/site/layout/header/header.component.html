@@ -14,13 +14,16 @@
 
   <div class="header-actions">
     <clr-dropdown>
-      <button class="nav-text" clrDropdownTrigger aria-label="open user profile">
-        peter.silie@butane.dev
+      <button *ngIf="currentUser" class="nav-text" clrDropdownTrigger aria-label="open user profile">
+        {{currentUser.username}}
         <clr-icon shape="caret down"></clr-icon>
       </button>
+      <div *ngIf="!currentUser">
+        <a href="/auth/signin" class="nav-link"><span class="nav-text">Log-In</span></a>
+      </div>
       <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
         <a href="/auth/user" clrDropdownItem>Preferences</a>
-        <a href="/auth/logout" clrDropdownItem>Log out</a>
+        <a (click)="logout()" clrDropdownItem>Log out</a>
       </clr-dropdown-menu>
     </clr-dropdown>
   </div>

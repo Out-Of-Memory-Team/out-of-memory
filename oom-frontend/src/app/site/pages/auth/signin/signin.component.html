@@ -1,5 +1,5 @@
 <div class="login-wrapper">
-  <form class="login">
+  <form class="login" (submit)="submit()">
     <section class="title">
       <h3 class="welcome">Welcome to</h3>
       Out of Memory
@@ -14,10 +14,10 @@
         <label class="clr-sr-only">Password</label>
         <input type="password" name="password" clrPassword placeholder="Password" [(ngModel)]="form.password"/>
       </clr-password-container>
-      <div class="error active">
+      <div class="error active" *ngIf="loginFail">
         Invalid user name or password
       </div>
-      <button type="submit" (click)="submit()" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary">Submit</button>
       <a [routerLink]="'/auth/signup'" class="signup">Register</a>
     </div>
   </form>
