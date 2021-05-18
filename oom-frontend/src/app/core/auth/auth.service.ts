@@ -11,7 +11,7 @@ import {SignUpDTO} from "../../shared/models/dto/SignUpDTO.model";
 })
 export class AuthService {
 
-  private readonly ENDPOINT = 'http://localhost:8080/';
+  private readonly ENDPOINT = '/api/';
 
   private currentUserSource: BehaviorSubject<User> = new BehaviorSubject<User>(null);
   currentUser = this.currentUserSource.asObservable();
