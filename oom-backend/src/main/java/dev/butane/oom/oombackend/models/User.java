@@ -1,5 +1,6 @@
 package dev.butane.oom.oombackend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -48,6 +49,7 @@ public class User implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public List<GrantedAuthority> getAuthorities(){
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(role.toString()));

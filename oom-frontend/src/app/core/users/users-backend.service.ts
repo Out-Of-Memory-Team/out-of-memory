@@ -9,7 +9,7 @@ import {User} from "../../shared/models/user.model";
 })
 export class UsersBackendService {
 
-  private readonly ENDPOINT = 'http://localhost:8080/users';
+  private readonly ENDPOINT = '/api/users';
 
   constructor(private http: HttpClient) { }
 
