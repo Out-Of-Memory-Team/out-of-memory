@@ -26,15 +26,16 @@ public class FlashcardDTO {
     private String front;
     private String back;
     private UUID deckId;
+    private int index;
 
     public static FlashcardDTO map(Flashcard card) {
         if(card == null)
             return null;
-        return new FlashcardDTO(card.getCardId(), card.getFront(), card.getBack(), card.getDeck().getDeckId());
+        return new FlashcardDTO(card.getCardId(), card.getFront(), card.getBack(), card.getDeck().getDeckId(), card.getIndex());
     }
 
     public Flashcard apply(Deck deck) {
-        return new Flashcard(getCardId(), getFront(), getBack(), deck);
+        return new Flashcard(getCardId(), getFront(), getBack(), deck, index);
     }
 
     public static List<FlashcardDTO> map(Iterable<Flashcard> cards) {
