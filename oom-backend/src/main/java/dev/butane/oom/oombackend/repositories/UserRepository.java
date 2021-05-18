@@ -13,4 +13,5 @@ import java.util.UUID;
 @Repository
 public interface UserRepository extends CrudRepository<User, UUID> {
     Optional<User> findByUsername (String username);
+    Optional<User> findByUsernameOrEmail(String username, String email);
 }
