@@ -51,7 +51,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .permitAll()
                     .and()
             .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.NEVER);
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     @Override
@@ -65,19 +65,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         provider.setPasswordEncoder(passwordEncoder);
         provider.setUserDetailsService(userDetailsService);
         return provider;
-    }
-
-    @Bean
-    public WebMvcConfigurer configurer(){
-        return new WebMvcConfigurer(){
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry
-                        .addMapping("/**")
-                        .allowedOrigins("*")
-                        .exposedHeaders("Authorization")
-                        .allowedMethods("*");
-            }
-        };
     }
 }
