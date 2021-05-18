@@ -24,4 +24,7 @@ public interface UserRepository extends CrudRepository<User, UUID> {
                     + "OR u.email LIKE %?1%"
     )
     Optional<List<String[]>> findByKeyword(String keyword, Pageable pageable);
+
+    Optional<User> findByUsernameOrEmail(String username, String email);
+
 }
