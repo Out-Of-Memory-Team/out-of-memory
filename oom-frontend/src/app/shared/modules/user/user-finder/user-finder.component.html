@@ -1,0 +1,18 @@
+<clr-modal [(clrModalOpen)]="openModal" [clrModalSize]="'sm'" [clrModalClosable]="false" >
+  <h3 class="modal-title">{{title}}</h3>
+  <div class="modal-body">
+    <form clrForm clrLayout="vertical">
+      <clr-datalist-container>
+        <input (keyup)="changeInput()" [(ngModel)]="keyword" placeholder="Search for user..." minlength="4" name="User" clrDatalistInput required/>
+        <clr-control-error>User not found!</clr-control-error>
+        <datalist>
+          <option *ngFor="let sugg of suggestions" [value]="sugg[0]" >{{sugg[1]}}</option>
+        </datalist>
+      </clr-datalist-container>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="closeModal()">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="submitModal()">Add</button>
+  </div>
+</clr-modal>

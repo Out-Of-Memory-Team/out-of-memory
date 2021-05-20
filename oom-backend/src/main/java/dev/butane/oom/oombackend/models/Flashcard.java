@@ -1,9 +1,6 @@
 package dev.butane.oom.oombackend.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -17,6 +14,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Table(name = "flashcard")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="deckId")
 public class Flashcard {
 
     @Id
@@ -35,7 +33,10 @@ public class Flashcard {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "deckId")
-    @JsonIgnore
+    @JsonProperty("deckId")
     private Deck deck;
+
+    @NotNull
+    private int index;
 }
 
