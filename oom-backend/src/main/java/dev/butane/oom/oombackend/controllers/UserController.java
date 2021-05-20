@@ -1,16 +1,23 @@
 package dev.butane.oom.oombackend.controllers;
 
+import dev.butane.oom.oombackend.models.Role;
 import dev.butane.oom.oombackend.models.User;
 import dev.butane.oom.oombackend.repositories.UserRepository;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @RestController
 public class UserController {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     private final UserRepository userRepository;
 
@@ -26,18 +33,48 @@ public class UserController {
     }
 
     // Get user by Id
-    @GetMapping("/user/{id}")
+    @GetMapping("/users/{id}")
     public Optional<User> getUser(@PathVariable UUID id) {
         return userRepository.findById(id);
+    }
+
+    // Get user by username
+    @GetMapping("/users/name/{username}")
+    public Optional<User> getUserbyUsername(@PathVariable String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    // Get current user
+    @GetMapping("/user")
+    public Optional<User> getCurrentUser(Principal principal) {
+        return userRepository.findById(UUID.fromString(principal.getName()));
     }
 
     // Creates or Update an user
     @PutMapping("/users")
     public User createOrUpdateUser(@RequestBody User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(Role.USER);
+        user.setAccountNonExpired(true);
+        user.setAccountNonLocked(true);
+        user.setEnabled(true);
+        user.setCredentialsNonExpired(true);
         return userRepository.save(user);
     }
     
     // Deletes user by Id
     @DeleteMapping("/users/{id}")
     public void deleteUser(@PathVariable UUID id) { userRepository.deleteById(id); }
+
+    // Get users by query
+    @GetMapping("/users/query/{keyword}")
+    public Optional<List<String[]>> getUserByKeyword(@PathVariable String keyword) {
+        return userRepository.findByKeyword(keyword, PageRequest.of(0,5));
+    }
+
+    // Get users by username
+    @GetMapping("/users/name/{name}")
+    public Optional<User> getUserByUsername(@PathVariable String name) {
+        return userRepository.findByUsername(name);
+    }
 }

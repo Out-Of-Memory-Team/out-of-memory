@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS oom.flashcard
 (
     front text COLLATE pg_catalog."default" NOT NULL,
     back text COLLATE pg_catalog."default" NOT NULL,
+    index integer NOT NULL,
     cardId uuid NOT NULL,
     deckId uuid NOT NULL,
     CONSTRAINT "PK_Card" PRIMARY KEY (cardId),
