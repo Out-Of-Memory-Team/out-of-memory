@@ -1,0 +1,8 @@
+<span *ngFor="let collaborator of collaborators; let i = index" class="label" [ngClass]="selected === i ? 'lable-light-blue' : 'clickable'" (click)="select(i)">
+  {{collaborator.username}}
+  <span *ngIf="selected === i" class="badge badge-light-blue" (click)="delete(i)">x</span>
+</span>
+
+<button class="btn btn-link" (click)="triggerAddModal()"><clr-icon shape="plus"></clr-icon></button>
+
+<user-finder [(openModal)]="openAdd" [title]="'Add collaborator'" (userSelect)="add($event)"></user-finder>

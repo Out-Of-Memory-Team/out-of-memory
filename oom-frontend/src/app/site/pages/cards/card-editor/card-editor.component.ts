@@ -78,7 +78,7 @@ export class CardEditorComponent implements OnInit, OnDestroy {
   }
 
   saveChanges(): void {
-    this.cardBackend.createOrUpdateDeck(this.card).pipe(take(1))
+    this.cardBackend.createOrUpdateCard(this.card).pipe(take(1))
       .subscribe(
         c => {
           this.toastr.success('Card saved.', 'Success!');

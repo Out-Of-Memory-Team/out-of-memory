@@ -18,6 +18,8 @@ import {ToastrModule} from "ngx-toastr";
 import {TagsModule} from "./shared/modules/tags/tags.module";
 import {DialogModule} from "./core/dialog/dialog.module";
 import { AuthInterceptor } from './core/auth/auth.interceptor';
+import { CollaboratorModule } from "./shared/modules/collaborator/collaborator.module";
+import {MaintainerModule} from "./shared/modules/maintainer/maintainer.module";
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { AuthInterceptor } from './core/auth/auth.interceptor';
     LandingModule,
     PipesModule,
     FormsModule,
-    TagsModule
+    TagsModule,
+    CollaboratorModule,
+    MaintainerModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]

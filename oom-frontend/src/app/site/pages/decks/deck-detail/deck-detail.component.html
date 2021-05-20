@@ -41,7 +41,7 @@
   </div>
 
   <div class="padding-minimal">
-    <div *ngFor="let card of deck.flashcards" class="clr-row">
+    <div *ngFor="let card of deck.flashcards; index as i" class="clr-row">
       <div class="clr-col">
         <div>
           <quill-editor [format]="'json'" [readOnly]="true" [modules]="{ toolbar: false }" [styles]="{ height: '250px' }" [sanitize]="true" [ngModel]="card.front" class="margin-right-small"></quill-editor>
@@ -60,10 +60,10 @@
           <button type="button" class="btn btn-link btn-icon no-margin" aria-label="home" (click)="deleteCard(card.cardId)">
             <clr-icon shape="trash" class="is-solid"></clr-icon>
           </button>
-          <button type="button" class="btn btn-link btn-icon no-margin" aria-label="home">
+          <button type="button" class="btn btn-link btn-icon no-margin" aria-label="home" (click)="moveCardUp(i)">
             <clr-icon shape="angle" class="is-solid" dir="up"></clr-icon>
           </button>
-          <button type="button" class="btn btn-link btn-icon no-margin" aria-label="home">
+          <button type="button" class="btn btn-link btn-icon no-margin" aria-label="home" (click)="moveCardDown(i)">
             <clr-icon shape="angle" class="is-solid" dir="down"></clr-icon>
           </button>
         </div>

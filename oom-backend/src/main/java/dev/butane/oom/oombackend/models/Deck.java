@@ -1,5 +1,7 @@
 package dev.butane.oom.oombackend.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
@@ -14,6 +16,7 @@ import java.util.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "deck")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="deckId")
 public class Deck {
 
     @Id
@@ -45,6 +48,7 @@ public class Deck {
     private Set<User> collaborators = new HashSet<User>();
 
     @OneToMany(mappedBy = "deck", cascade = {CascadeType.ALL})
+    @OrderBy("index ASC")
     private List<Flashcard> flashcards = new ArrayList<Flashcard>();
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})

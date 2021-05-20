@@ -1,0 +1,5 @@
+{{user?.username || '-'}}
+
+<button class="btn btn-link" (click)="triggerEdit()"><clr-icon shape="edit"></clr-icon></button>
+
+<user-finder [(openModal)]="openEdit" [title]="'Set Maintainer'" (userSelect)="change($event)"></user-finder>
