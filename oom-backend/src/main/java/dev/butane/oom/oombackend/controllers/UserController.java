@@ -5,9 +5,13 @@ import dev.butane.oom.oombackend.models.User;
 import dev.butane.oom.oombackend.repositories.UserRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
+import javax.annotation.security.RolesAllowed;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -25,9 +29,9 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-
     // Get all users
-    @GetMapping("/users")
+    @GetMapping("/admin/users")
+    @RolesAllowed("ADMIN")
     public List<User> getUsers() {
         return (List<User>) userRepository.findAll();
     }
@@ -50,21 +54,20 @@ public class UserController {
         return userRepository.findById(UUID.fromString(principal.getName()));
     }
 
-    // Creates or Update an user
+    // Update an user
     @PutMapping("/users")
-    public User createOrUpdateUser(@RequestBody User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole(Role.USER);
-        user.setAccountNonExpired(true);
-        user.setAccountNonLocked(true);
-        user.setEnabled(true);
-        user.setCredentialsNonExpired(true);
-        return userRepository.save(user);
+    public User createOrUpdateUser(@RequestBody User user, Principal principal) {
+        if(user.getUserId() == UUID.fromString(principal.getName())) {
+            return userRepository.save(user);
+        }
+        return null;
     }
     
     // Deletes user by Id
     @DeleteMapping("/users/{id}")
-    public void deleteUser(@PathVariable UUID id) { userRepository.deleteById(id); }
+    public void deleteUser(@PathVariable UUID id, Principal principal) {
+        userRepository.deleteById(UUID.fromString(principal.getName()));
+    }
 
     // Get users by query
     @GetMapping("/users/query/{keyword}")
@@ -72,9 +75,13 @@ public class UserController {
         return userRepository.findByKeyword(keyword, PageRequest.of(0,5));
     }
 
-    // Get users by username
-    @GetMapping("/users/name/{name}")
-    public Optional<User> getUserByUsername(@PathVariable String name) {
-        return userRepository.findByUsername(name);
+    // Creates an user
+    @PutMapping("/register")
+    public User register(@RequestBody User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        if(!userRepository.existsById(user.getUserId())) {
+            return userRepository.save(user);
+        }
+        return null;
     }
 }
