@@ -79,7 +79,7 @@ public class UserController {
     @PutMapping("/register")
     public User register(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        if(!userRepository.existsById(user.getUserId())) {
+        if(user.getUserId()==null) {
             return userRepository.save(user);
         }
         return null;

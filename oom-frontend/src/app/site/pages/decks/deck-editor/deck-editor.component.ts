@@ -9,6 +9,7 @@ import {take} from "rxjs/operators";
 import {DialogType} from "../../../../core/dialog/dialog-data/dialog-type.enum";
 import {DialogService} from "../../../../core/dialog/dialog.service";
 import {Location} from "@angular/common";
+import {AuthService} from "../../../../core/auth/auth.service";
 
 @Component({
   selector: 'page-deck-editor',
@@ -28,7 +29,8 @@ export class DeckEditorComponent implements OnInit {
     private toastr: ToastrService,
     public dialog: DialogService,
     private deckBackend: DecksBackendService,
-    private cardBackend: CardsBackendService
+    private cardBackend: CardsBackendService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -37,6 +39,7 @@ export class DeckEditorComponent implements OnInit {
 
       if(this.id === 'new') {
         this.deck = new Deck();
+        this.authService.currentUser.subscribe(user => this.deck.maintainer = user);
         return;
       }
 
