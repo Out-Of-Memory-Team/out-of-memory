@@ -1,0 +1,52 @@
+<div class="page-shell" *ngIf="deck">
+
+  <div class="card">
+    <div class="card-block">
+      <div class="card-title">
+        {{deck.title}}
+      </div>
+    </div>
+  </div>
+
+  <div class="progress labeled">
+    <progress max="{{counterMax}}" value="{{counter}}"></progress>
+    <span>{{learnRate}}%</span>
+  </div>
+
+  <div *ngIf="currentCard" class="padding-minimal">
+    <div>
+      <div class="clr-col">
+        <div>
+          <quill-editor [format]="'json'" [readOnly]="true" [modules]="{ toolbar: false }" [styles]="{ height: '250px' }" [sanitize]="true" [ngModel]="currentCard.front" class="margin-right-small"></quill-editor>
+        </div>
+      </div>
+      <div class="clr-col" *ngIf="solutionOpen">
+        <div>
+          <quill-editor [format]="'json'" [readOnly]="true" [modules]="{ toolbar: false }" [styles]="{ height: '250px' }" [sanitize]="true" [ngModel]="currentCard.back" class="margin-right-small"></quill-editor>
+        </div>
+      </div>
+      <button *ngIf="!solutionOpen" type="button" class="btn flex-center" aria-label="open" (click)="openAnswer()">
+        <span>Show Answer</span>
+      </button>
+      <button *ngIf="solutionOpen" type="button" class="btn btn-success clr-align-items-center" aria-label="close" (click)="done()">
+        <span>Done</span>
+      </button>
+      <button *ngIf="solutionOpen" type="button" class="btn btn-danger" aria-label="close" (click)="again()">
+        <span>Again</span>
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="!currentCard && !finished">
+    <button type="button" class="btn" aria-label="learnDeck" (click)="nextCard()">
+      <span>Start</span>
+    </button>
+  </div>
+
+  <div *ngIf="finished">
+    <h1>
+      Congratulations! You did it 🎉
+    </h1>
+  </div>
+
+</div>
