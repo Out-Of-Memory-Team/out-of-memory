@@ -19,19 +19,19 @@ public class DeckController {
 
     // Get all decks
     @GetMapping("/decks")
-    public ArrayList<Deck> getDecks(){ return (ArrayList<Deck>) deckRepository.findAll(); }
+    protected ArrayList<Deck> getDecks(){ return (ArrayList<Deck>) deckRepository.findAll(); }
 
     // Get deck by id
     @GetMapping("/decks/{id}")
-    public Optional<Deck> getDeck(@PathVariable UUID id) { return deckRepository.findById(id);}
+    protected Optional<Deck> getDeck(@PathVariable UUID id) { return deckRepository.findById(id);}
 
     // Create or Update a Deck
     @PutMapping("/decks")
-    public Deck createOrUpdateDeck(@RequestBody Deck deck) {
+    protected Deck createOrUpdateDeck(@RequestBody Deck deck) {
         return deckRepository.save(deck);
     }
 
     // Delete a Deck
     @DeleteMapping("/decks/{id}")
-    public void deleteDeck(@PathVariable UUID id) { deckRepository.deleteById(id);}
+    protected void deleteDeck(@PathVariable UUID id) { deckRepository.deleteById(id);}
 }

@@ -55,15 +55,11 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
                 String username = claimsJws.getBody().getSubject();
 
-                if (username.isEmpty() || username == null) {
-                    return null;
-                }
-
                 // TODO roles here!
 
                 return new UsernamePasswordAuthenticationToken(username, null, null);
             } catch (JwtException exception) {
-
+                exception.printStackTrace();
             }
         }
 
