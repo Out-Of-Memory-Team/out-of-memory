@@ -28,31 +28,31 @@ public class UserController {
 
     // Get all users
     @GetMapping("/users")
-    public List<User> getUsers() {
+    protected List<User> getUsers() {
         return (List<User>) userRepository.findAll();
     }
 
     // Get user by Id
     @GetMapping("/users/{id}")
-    public Optional<User> getUser(@PathVariable UUID id) {
+    protected Optional<User> getUser(@PathVariable UUID id) {
         return userRepository.findById(id);
     }
 
     // Get user by username
     @GetMapping("/users/name/{username}")
-    public Optional<User> getUserbyUsername(@PathVariable String username) {
+    protected Optional<User> getUserbyUsername(@PathVariable String username) {
         return userRepository.findByUsername(username);
     }
 
     // Get current user
     @GetMapping("/user")
-    public Optional<User> getCurrentUser(Principal principal) {
+    protected Optional<User> getCurrentUser(Principal principal) {
         return userRepository.findById(UUID.fromString(principal.getName()));
     }
 
     // Creates or Update an user
     @PutMapping("/users")
-    public User createOrUpdateUser(@RequestBody User user) {
+    protected User createOrUpdateUser(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(Role.USER);
         user.setAccountNonExpired(true);
@@ -64,17 +64,17 @@ public class UserController {
     
     // Deletes user by Id
     @DeleteMapping("/users/{id}")
-    public void deleteUser(@PathVariable UUID id) { userRepository.deleteById(id); }
+    protected void deleteUser(@PathVariable UUID id) { userRepository.deleteById(id); }
 
     // Get users by query
     @GetMapping("/users/query/{keyword}")
-    public Optional<List<String[]>> getUserByKeyword(@PathVariable String keyword) {
+    protected Optional<List<String[]>> getUserByKeyword(@PathVariable String keyword) {
         return userRepository.findByKeyword(keyword, PageRequest.of(0,5));
     }
 
     // Get users by username
     @GetMapping("/users/name/{name}")
-    public Optional<User> getUserByUsername(@PathVariable String name) {
+    protected Optional<User> getUserByUsername(@PathVariable String name) {
         return userRepository.findByUsername(name);
     }
 }

@@ -24,19 +24,19 @@ public class FlashcardController {
 
     // Get all cards TODO: By specific user
     @GetMapping("/cards")
-    public List<FlashcardDTO> getFlashcards() {
+    protected List<FlashcardDTO> getFlashcards() {
         return FlashcardDTO.map(flashcardRepository.findAll());
     }
 
     // Get card by Id TODO: By specific user
     @GetMapping("/cards/{id}")
-    public Optional<FlashcardDTO> getFlashcardById(@PathVariable UUID id) {
+    protected Optional<FlashcardDTO> getFlashcardById(@PathVariable UUID id) {
         return FlashcardDTO.map(flashcardRepository.findById(id));
     }
 
     // Create or Update a card TODO: of specific user
     @PutMapping("/cards")
-    public FlashcardDTO createOrUpdateFlashcard(@RequestBody FlashcardDTO card) {
+    protected FlashcardDTO createOrUpdateFlashcard(@RequestBody FlashcardDTO card) {
         Deck deck = deckRepository.findById(card.getDeckId()).orElseThrow(RuntimeException::new);
         if(card.getIndex()==-1)
             card.setIndex(deck.getFlashcards().size());
@@ -45,7 +45,7 @@ public class FlashcardController {
 
     // Delete a card
     @DeleteMapping("/cards/{id}")
-    public void deleteFlashcard(@PathVariable UUID id) {
+    protected void deleteFlashcard(@PathVariable UUID id) {
         flashcardRepository.deleteById(id);
     }
 }
