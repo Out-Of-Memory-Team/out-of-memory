@@ -32,3 +32,5 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots verify
+        env:
+          SPRING_DATASOURCE_URL: 'jdbc:postgresql://postgres:5432/postgres'
