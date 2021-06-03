@@ -3,14 +3,19 @@
   <div class="card">
     <div class="card-block">
       <div class="card-title">
-        {{deck.title}}
+        <b>{{deck.title}}</b>
+        <button *ngIf="!currentCard && !finished"  type="button" class="btn btn-link margin-left-small" aria-label="learnDeck" (click)="start()">
+          <span>Start</span>
+        </button>
+      </div>
+      <div class="card-title">
+        {{minutes | number: '2.0'}}:{{seconds | number: '2.0'}} / {{learnRate}}%
       </div>
     </div>
   </div>
 
-  <div class="progress labeled">
+  <div class="progress">
     <progress max="{{counterMax}}" value="{{counter}}"></progress>
-    <span>{{learnRate}}%</span>
   </div>
 
   <div *ngIf="currentCard" class="padding-minimal">
@@ -35,12 +40,6 @@
         <span>Again</span>
       </button>
     </div>
-  </div>
-
-  <div *ngIf="!currentCard && !finished">
-    <button type="button" class="btn" aria-label="learnDeck" (click)="nextCard()">
-      <span>Start</span>
-    </button>
   </div>
 
   <div *ngIf="finished">

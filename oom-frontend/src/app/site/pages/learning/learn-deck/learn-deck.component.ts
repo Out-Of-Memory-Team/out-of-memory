@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Subscription} from "rxjs";
+import {interval, Subscription} from "rxjs";
 import {Deck} from "../../../../shared/models/deck.model";
 import {take} from "rxjs/operators";
 import {ActivatedRoute} from "@angular/router";
@@ -60,10 +60,9 @@ export class LearnDeckComponent implements OnInit {
   nextCard() {
     if(this.deck.flashcards.length > 0) {
       this.solutionOpen = false;
-      this.currentCard = this.deck.flashcards.pop();
+      this.currentCard = this.deck.flashcards.shift();
     } else {
-      this.currentCard = null;
-      this.finished = true;
+      this.stop();
     }
   }
 
@@ -76,5 +75,29 @@ export class LearnDeckComponent implements OnInit {
   again() {
     this.deck.flashcards.push(this.currentCard);
     this.nextCard();
+  }
+
+  start() {
+    this.startTimer();
+    this.nextCard();
+  }
+
+  stop() {
+    this.currentCard = null;
+    this.finished = true;
+    this.timer.unsubscribe();
+  }
+
+  timer: Subscription;
+  time: number = 0;
+  seconds: number = 0;
+  minutes: number = 0;
+
+  startTimer() {
+    this.timer = interval(1000).subscribe(x => {
+      this.time++;
+      this.seconds = this.time % 60;
+      this.minutes = Math.floor(this.time/60);
+    })
   }
 }
