@@ -1,6 +1,6 @@
 FROM nginx:stable
 
-# Make port 443 available to the world outside this container
+# Make port 80 and 443 available to the world outside this container
 EXPOSE 80 443
 
 # Install curl
@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
 RUN rm /etc/nginx/conf.d/*
 
 # Copy custom config
-COPY default.conf /etc/nginx/conf.d/default.conf
+COPY default.conf /etc/nginx/conf.d/default.template
 
 # Remove default website
 RUN rm -rf /usr/share/nginx/html/*
@@ -24,3 +24,5 @@ ADD ${DIST_DIR} /usr/share/nginx/html
 # Make sure nginx has all permissions
 RUN chown -R nginx:nginx /usr/share/nginx
 RUN chmod -R u+rwx /usr/share/nginx
+
+CMD ["/bin/bash","-c","envsubst '$${BACKEND_HOST},$${BACKEND_PORT}' < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"]

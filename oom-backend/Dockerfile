@@ -1,7 +1,7 @@
 FROM openjdk:11-jre
 
-# Make port 80, 90, 443 available to the world outside this container
-EXPOSE 80 90 443
+# Make port 80 and 443 available to the world outside this container
+EXPOSE 80 443
 
 #HEALTHCHECK --interval=30s --timeout=3s CMD curl --fail https://localhost:443 || exit 1
 
@@ -19,4 +19,3 @@ RUN chmod +x /docker-entrypoint.sh
 
 # Start app
 ENTRYPOINT ["/docker-entrypoint.sh"]
-#CMD ["java", "-jar", "/app.jar"]
