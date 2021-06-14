@@ -20,13 +20,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install Dependencies
         run: cd oom-frontend && npm ci
+        working-directory: ${{env.working-directory}}
       - name: Build
         run: cd oom-frontend && npm run build
-        
-      - name: publish to artifactory
-        uses: advancedcsg-open/action-jfrog-cli@master
-        with:
-          url: 'https://oom.jfrog.io/'
-          credentials type: 'apikey'
-          apikey: ${{ secrets.RT_APIKEY }}
-          args: u "dist/*" "/mu/repo/path/" --recursive=true --build-name=oom-backend
+        working-directory: ${{env.working-directory}}
