@@ -1,6 +1,6 @@
 name: '[Frontend] Node CI'
 
-on: [workflow_dispatch, pull_request, push]
+on: [workflow_dispatch, pull_request]
 
 jobs:
   build:
@@ -20,5 +20,3 @@ jobs:
         run: cd oom-frontend && npm ci
       - name: Build
         run: cd oom-frontend && npm run build
-      - name: Run Tests
-        run: cd oom-frontend && npm run test
