@@ -9,7 +9,7 @@ EXPOSE 80 90 443
 VOLUME /tmp
 
 # The application's jar file
-ARG JAR_FILE=target/oom-backend-0.0.1-SNAPSHOT.jar
+ARG JAR_FILE=target/oom-backend-1.0.0.jar
 
 # Add the application's jar to the container
 ADD ${JAR_FILE} app.jar

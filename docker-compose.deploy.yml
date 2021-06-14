@@ -1,0 +1,18 @@
+version: '3.1'
+
+services:
+  oom-backend:
+    image: oom-backend
+    restart: always
+    environment:
+      DB_URL: 'jdbc:postgresql://postgres:5432/postgres'
+      DB_USER: postgres
+      DB_PASSWORD: password
+      SERVER_PORT: 80
+    ports:
+      - 3200:80
+  oom-frontend:
+    image: oom-frontend
+    restart: always
+    ports:
+      - 80:80
