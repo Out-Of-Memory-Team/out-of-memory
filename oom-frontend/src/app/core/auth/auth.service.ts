@@ -26,7 +26,7 @@ export class AuthService {
   }
 
   register(user: SignUpDTO): Observable<any> {
-    return this.httpClient.put(this.ENDPOINT + 'users', user);
+    return this.httpClient.put(this.ENDPOINT + 'register', user);
   }
 
   logout() {
