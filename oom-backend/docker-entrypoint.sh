@@ -2,6 +2,10 @@
 set -e
 
 #update-ca-certificates -v
-java -jar /app.jar
+java \
+-Dspring.datasource.url=$DB_URL \
+-Dspring.datasource.username=$DB_USER \
+-Dspring.datasource.password=$DB_PASSWORD \
+-jar /app.jar
 
 exec "$@"
