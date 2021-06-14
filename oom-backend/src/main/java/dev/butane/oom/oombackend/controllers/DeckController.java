@@ -42,6 +42,7 @@ public class DeckController {
         if(deck.getMaintainer() == this.getCurrentUser(principal) || deck.getCollaborators().contains(this.getCurrentUser(principal)))
             return deckRepository.save(deck);
         throw new RuntimeException();
+
     }
 
     // Delete a Deck

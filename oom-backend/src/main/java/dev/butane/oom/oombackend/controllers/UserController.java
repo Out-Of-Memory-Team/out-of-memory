@@ -30,27 +30,26 @@ public class UserController {
     }
 
     // Get all users
-    @GetMapping("/admin/users")
-    @RolesAllowed("ADMIN")
-    public List<User> getUsers() {
+    @GetMapping("/users")
+    protected List<User> getUsers() {
         return (List<User>) userRepository.findAll();
     }
 
     // Get user by Id
     @GetMapping("/users/{id}")
-    public Optional<User> getUser(@PathVariable UUID id) {
+    protected Optional<User> getUser(@PathVariable UUID id) {
         return userRepository.findById(id);
     }
 
     // Get user by username
     @GetMapping("/users/name/{username}")
-    public Optional<User> getUserbyUsername(@PathVariable String username) {
+    protected Optional<User> getUserbyUsername(@PathVariable String username) {
         return userRepository.findByUsername(username);
     }
 
     // Get current user
     @GetMapping("/user")
-    public Optional<User> getCurrentUser(Principal principal) {
+    protected Optional<User> getCurrentUser(Principal principal) {
         return userRepository.findById(UUID.fromString(principal.getName()));
     }
 
@@ -71,7 +70,7 @@ public class UserController {
 
     // Get users by query
     @GetMapping("/users/query/{keyword}")
-    public Optional<List<String[]>> getUserByKeyword(@PathVariable String keyword) {
+    protected Optional<List<String[]>> getUserByKeyword(@PathVariable String keyword) {
         return userRepository.findByKeyword(keyword, PageRequest.of(0,5));
     }
 
