@@ -29,19 +29,21 @@ public class User implements UserDetails {
     @NotNull
     private UUID userId;
 
+    @Column(unique = true)
     @NotNull
     private String username;
+    @Column(unique = true)
     @NotNull
     private String email;
     private String firstName;
     private String lastName;
     private String password;
-    private boolean accountNonExpired;
-    private boolean accountNonLocked;
-    private boolean credentialsNonExpired;
-    private boolean enabled;
+    private boolean accountNonExpired = true;
+    private boolean accountNonLocked = true;
+    private boolean credentialsNonExpired = true;
+    private boolean enabled = true;
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private Role role = Role.USER;
 
     @Override
     public boolean isEnabled() {
