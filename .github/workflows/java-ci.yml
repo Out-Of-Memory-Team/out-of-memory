@@ -1,6 +1,6 @@
-name: Java CI with Maven
+name: '[Backend] Maven CI'
 
-on: [pull_request]
+on: [workflow_dispatch, pull_request]
 
 jobs:
   build:
@@ -35,6 +35,6 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
           
       - name: Build with Maven
-        run: mvn --batch-mode --update-snapshots verify
+        run: cd oom-backend && mvn --batch-mode --update-snapshots verify
         env:
           SPRING_DATASOURCE_URL: 'jdbc:postgresql://postgres:5432/postgres'
