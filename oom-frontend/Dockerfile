@@ -9,10 +9,10 @@ RUN apt-get update && apt-get install -y \
  && rm -rf /var/lib/apt/lists/*
 
 # Remove default config
-#RUN rm /etc/nginx/conf.d/*
+RUN rm /etc/nginx/conf.d/*
 
 # Copy custom config
-#COPY default.conf /etc/nginx/conf.d/default.conf
+COPY default.conf /etc/nginx/conf.d/default.conf
 
 # Remove default website
 RUN rm -rf /usr/share/nginx/html/*
