@@ -39,7 +39,7 @@ public class DeckController {
     // Create or Update a Deck
     @PutMapping("/decks")
     public Deck createOrUpdateDeck(@RequestBody Deck deck, Principal principal) {
-        if(deck.getMaintainer() == this.getCurrentUser(principal) || deck.getCollaborators().contains(this.getCurrentUser(principal)))
+        if(deck.getMaintainer().getUserId().equals(this.getCurrentUser(principal).getUserId()) || deck.getCollaborators().contains(this.getCurrentUser(principal)))
             return deckRepository.save(deck);
         throw new RuntimeException();
 

@@ -1,20 +1,18 @@
 version: '3.1'
 
 services:
-
-  db:
+  postgres:
     image: postgres
     restart: always
     environment:
       POSTGRES_PASSWORD: password
     ports:
       - 5432:5432
-
   pgadmin4:
     image: dpage/pgadmin4
     restart: always
     environment:
-      PGADMIN_DEFAULT_EMAIL: Justin_Gottfried@hotmail.com
-      PGADMIN_DEFAULT_PASSWORD: password
+      PGADMIN_DEFAULT_EMAIL: root
+      PGADMIN_DEFAULT_PASSWORD: initial1
     ports:
-      - 80:80
+      - 8137:80
