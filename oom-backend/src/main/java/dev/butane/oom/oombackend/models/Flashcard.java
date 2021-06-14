@@ -31,7 +31,7 @@ public class Flashcard {
     @NotNull
     private String back;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     @JoinColumn(name = "deckId")
     @JsonProperty("deckId")
     private Deck deck;
