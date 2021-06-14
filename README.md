@@ -11,6 +11,8 @@ Contributors: Luca, Leonhard, Franz, Justin
 
 ## Installation
 
+Before going through the steps you have to clone this repository!
+
 Build backend image:
 1) Navigate to `/oom-backend`
 2) Run `mvn install` to build the backend
