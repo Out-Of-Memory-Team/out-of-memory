@@ -16,6 +16,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - run: cd oom-frontend && npm ci
       - run: cd oom-frontend && npm run lint
       - run: cd oom-frontend && npm run build
       - run: cd oom-frontend && npm run test
