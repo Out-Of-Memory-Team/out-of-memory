@@ -36,7 +36,7 @@ public class Deck {
     @NotNull
     private Visibility visibility;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "maintainer")
     private User maintainer;
 
