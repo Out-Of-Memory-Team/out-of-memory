@@ -26,4 +26,4 @@ Run application:
 1) Navigate to `/`
 2) Run `docker-compose -f docker-compose.postgresql.yml -f docker-compose.deploy.yml up -d`
 
-Done! The frontend is running at http://localhost.
+Done! The frontend is running at http://localhost/.
