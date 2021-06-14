@@ -19,8 +19,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install Dependencies
-        run: cd oom-frontend && npm ci
+        run: npm ci
         working-directory: ${{env.working-directory}}
       - name: Build
-        run: cd oom-frontend && npm run build
+        run: npm run build
         working-directory: ${{env.working-directory}}
