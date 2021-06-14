@@ -1,6 +1,6 @@
 name: '[Backend] Maven CI'
 
-on: [workflow_dispatch, pull_request]
+on: [workflow_dispatch, pull_request, post]
 
 jobs:
   build:
