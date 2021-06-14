@@ -36,11 +36,11 @@ public class Deck {
     @NotNull
     private Visibility visibility;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "maintainer")
     private User maintainer;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     @JoinTable(name = "collaborator",
         joinColumns = @JoinColumn(name = "deckId"),
         inverseJoinColumns = @JoinColumn(name = "userId")
@@ -51,7 +51,7 @@ public class Deck {
     @OrderBy("index ASC")
     private List<Flashcard> flashcards = new ArrayList<Flashcard>();
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name = "decktags",
         joinColumns = @JoinColumn(name = "deckId"),
         inverseJoinColumns = @JoinColumn(name = "name")

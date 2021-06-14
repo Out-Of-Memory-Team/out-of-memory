@@ -121,4 +121,8 @@ export class DeckDetailComponent implements OnInit, OnDestroy {
         );
     });
   }
+
+  learnDeck() {
+
+  }
 }
