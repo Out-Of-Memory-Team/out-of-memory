@@ -25,6 +25,7 @@ jobs:
         run: npm run build
         working-directory: ${{env.working-directory}}
         
+      - uses: jfrog/setup-jfrog-cli@v1
       - name: Kaniko build
         uses: aevea/action-kaniko@master
         with:
@@ -34,4 +35,4 @@ jobs:
           cache: true
           cache_registry: aevea/cache
           path: ${{env.working-directory}}
-          image: oom-frontend
+          image: oom/oom-frontend
