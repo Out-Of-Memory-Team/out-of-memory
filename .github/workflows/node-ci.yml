@@ -1,6 +1,6 @@
 name: '[Frontend] Node CI'
 
-on: [workflow_dispatch, pull_request]
+on: [workflow_dispatch, pull_request, push]
 
 jobs:
   build:
@@ -24,3 +24,14 @@ jobs:
       - name: Build
         run: npm run build
         working-directory: ${{env.working-directory}}
+        
+      - name: Kaniko build
+        uses: aevea/action-kaniko@master
+        with:
+          registry: oom.jfrog.io
+          username: ${{ secrets.JFROG_USER_WRITER }}
+          password: ${{ secrets.JFROG_PASSWORD_WRITER }}
+          cache: true
+          cache_registry: aevea/cache
+          path: ${{env.working-directory}}
+          image: oom-frontend
