@@ -2,7 +2,7 @@ version: '3.1'
 
 services:
   oom-backend:
-    image: oom.jfrog.io/oom/oom-backend:master
+    image: oom-backend
     restart: always
     environment:
       DB_URL: 'jdbc:postgresql://postgres:5432/postgres'
@@ -12,7 +12,7 @@ services:
     ports:
       - 3200:80
   oom-frontend:
-    image: oom.jfrog.io/oom/oom-frontend:master
+    image: oom-frontend
     restart: always
     environment:
       BACKEND_HOST: 'oom-backend'

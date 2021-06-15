@@ -9,7 +9,14 @@ Contributors: Luca, Leonhard, Franz, Justin
 - Docker
 - Docker-Compose
 
-## Installation
+## Run `master`-version
+
+Run application:
+1) Run `docker-compose -f docker-compose.postgresql.yml -f docker-compose.deploy.yml up -d`
+
+Done! The frontend is running at http://localhost/.
+
+## Build your own version
 
 Before going through the steps you have to clone this repository!
 
@@ -26,6 +33,6 @@ Build frontend image:
 
 Run application:
 1) Navigate to `/`
-2) Run `docker-compose -f docker-compose.postgresql.yml -f docker-compose.deploy.yml up -d`
+2) Run `docker-compose -f docker-compose.postgresql.yml -f docker-compose.dev.yml up -d`
 
 Done! The frontend is running at http://localhost/.
