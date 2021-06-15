@@ -40,3 +40,14 @@ jobs:
         working-directory: ${{env.working-directory}}
         env:
           SPRING_DATASOURCE_URL: 'jdbc:postgresql://postgres:5432/postgres'
+        
+      - name: Kaniko build & push
+        uses: aevea/action-kaniko@master
+        with:
+          registry: oom.jfrog.io
+          username: ${{ secrets.JFROG_USER_WRITER }}
+          password: ${{ secrets.JFROG_PASSWORD_WRITER }}
+          cache: true
+          cache_registry: aevea/cache
+          path: ${{env.working-directory}}
+          image: oom/oom-backend
