@@ -21,11 +21,11 @@ jobs:
       - name: Install Dependencies
         run: npm ci
         working-directory: ${{env.working-directory}}
-      - name: Build
+      - name: Build with NPM
         run: npm run build
         working-directory: ${{env.working-directory}}
         
-      - name: Kaniko build
+      - name: Kaniko build & push
         uses: aevea/action-kaniko@master
         with:
           registry: oom.jfrog.io
