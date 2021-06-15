@@ -1,0 +1,56 @@
+<div class="page-shell" *ngIf="card">
+
+  <div class="card">
+    <div class="card-block">
+      <div class="card-title">
+        Flashcard Editor
+      </div>
+      <div class="card-text">
+        Some description about this page. TBD
+      </div>
+    </div>
+  </div>
+
+  <div class="padding-minimal">
+    <div class="clr-row">
+      <div class="clr-col">
+        <div>
+          <quill-editor [format]="'json'" [modules]="modules" [styles]="{ height: '250px' }" [sanitize]="true" [(ngModel)]="card.front" class="margin-right-small"></quill-editor>
+        </div>
+      </div>
+      <div class="clr-col">
+        <div>
+          <quill-editor [format]="'json'" [modules]="modules" [styles]="{ height: '250px' }" [sanitize]="true" [(ngModel)]="card.back" class="margin-right-small"></quill-editor>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card no-margin">
+    <div class="card-block">
+      <div class="clr-row">
+        <div class="clr-col-12">
+          <span class="p4">Deck</span>
+          <clr-combobox-container class="no-margin">
+            <clr-combobox [(ngModel)]="card.deckId" required>
+              <clr-options>
+                <clr-option *clrOptionItems="let deck of decks; field:'title'" [clrValue]="deck.deckId">
+                  {{deck.title}}
+                </clr-option>
+              </clr-options>
+            </clr-combobox>
+            <clr-control-error>There was an error</clr-control-error>
+          </clr-combobox-container>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-block">
+      <button class="btn btn-danger-outline" (click)="discardChanges()">Discard</button>
+      <button class="btn btn-primary" (click)="saveChanges()">Save</button>
+    </div>
+  </div>
+
+</div>

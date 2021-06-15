@@ -1,0 +1,86 @@
+<div class="page-shell" *ngIf="deck">
+
+  <div class="card">
+    <div class="card-block">
+      <div class="card-title">
+        {{deck.title}}
+        <button type="button" class="btn btn-link btn-icon no-margin" aria-label="home" [routerLink]="'edit'">
+          <clr-icon shape="pencil" class="is-solid"></clr-icon>
+        </button>
+        <button type="button" class="btn btn-link btn-icon no-margin" aria-label="home" (click)="deleteDeck()">
+          <clr-icon shape="trash" class="is-solid"></clr-icon>
+        </button>
+        <a type="button" class="btn btn-link margin-left-small" aria-label="learnDeck" href="/learn/{{deck.deckId}}">
+          <span>Learn Deck</span>
+        </a>
+      </div>
+      <div class="card-text">
+        {{deck.description || 'no description'}}
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-block">
+      <div class="clr-row padding-bottom-small">
+        <div class="clr-col-12">
+          <span class="p4">Tags</span><br>
+          <span *ngIf="deck.tags.length === 0">no tags</span>
+          <span *ngFor="let tag of deck.tags" class="label label-purple">{{tag.name}}</span>
+        </div>
+      </div>
+      <div class="clr-row">
+        <div class="clr-col-3">
+          <span class="p4">Maintainer</span><br>
+          {{deck.maintainer?.username || '-'}}
+        </div>
+        <div class="clr-col-9">
+          <span class="p4">Collaborators</span><br>
+          <span *ngIf="deck.collaborators.length === 0">no collaborators</span>
+          <span *ngFor="let user of deck.collaborators" class="label label-purple">{{user.username}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="padding-minimal">
+    <div *ngFor="let card of deck.flashcards; index as i" class="clr-row">
+      <div class="clr-col">
+        <div>
+          <quill-editor [format]="'json'" [readOnly]="true" [modules]="{ toolbar: false }" [styles]="{ height: '250px' }" [sanitize]="true" [ngModel]="card.front" class="margin-right-small"></quill-editor>
+        </div>
+      </div>
+      <div class="clr-col">
+        <div>
+          <quill-editor [format]="'json'" [readOnly]="true" [modules]="{ toolbar: false }" [styles]="{ height: '250px' }" [sanitize]="true" [ngModel]="card.back" class="margin-right-small"></quill-editor>
+        </div>
+      </div>
+      <div class="clr-col-1">
+        <div class="action-bar card no-margin">
+          <button type="button" class="btn btn-link btn-icon no-margin" aria-label="home" [routerLink]="'/cards/'+card.cardId">
+            <clr-icon shape="pencil" class="is-solid"></clr-icon>
+          </button>
+          <button type="button" class="btn btn-link btn-icon no-margin" aria-label="home" (click)="deleteCard(card.cardId)">
+            <clr-icon shape="trash" class="is-solid"></clr-icon>
+          </button>
+          <button type="button" class="btn btn-link btn-icon no-margin" aria-label="home" (click)="moveCardUp(i)">
+            <clr-icon shape="angle" class="is-solid" dir="up"></clr-icon>
+          </button>
+          <button type="button" class="btn btn-link btn-icon no-margin" aria-label="home" (click)="moveCardDown(i)">
+            <clr-icon shape="angle" class="is-solid" dir="down"></clr-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card no-margin">
+    <div class="card-block flex-center">
+      <button type="button" class="btn btn-icon btn-link" aria-label="done" [routerLink]="'/cards/new'">
+        <clr-icon shape="plus"></clr-icon>
+        Add Flashcard
+      </button>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,38 @@
+<div class="login-wrapper">
+  <form class="login" (submit)="submit()">
+    <section class="title">
+      <h3 class="welcome">Welcome to</h3>
+      Out of Memory
+      <h5 class="hint">Use an existing account to sign in or create one now</h5>
+    </section>
+    <div>
+      <clr-input-container>
+        <label class="clr-sr-only">Username</label>
+        <input type="text" name="username" clrInput placeholder="Username" [(ngModel)]="form.username" required/>
+      </clr-input-container>
+      <clr-input-container>
+        <label class="clr-sr-only">Username</label>
+        <input type="email" name="email" clrInput placeholder="EMail Adresse" [(ngModel)]="form.email" required email/>
+        <clr-control-error *clrIfError="'email'">Please enter a valid email!</clr-control-error>
+      </clr-input-container>
+      <clr-input-container>
+        <label class="clr-sr-only">First Name</label>
+        <input type="text" name="firstName" clrInput placeholder="First Name" [(ngModel)]="form.firstName" required/>
+      </clr-input-container>
+      <clr-input-container>
+        <label class="clr-sr-only">Last Name</label>
+        <input type="text" name="lastName" clrInput placeholder="Last Name" [(ngModel)]="form.lastName" required/>
+      </clr-input-container>
+      <clr-password-container>
+        <label class="clr-sr-only">Password</label>
+        <input type="password" name="password" clrPassword placeholder="Password" [(ngModel)]="form.password" required minlength="8"/>
+        <clr-control-error *clrIfError="'minlength'">The password has to have at least 8 characters!</clr-control-error>
+      </clr-password-container>
+      <div class="error active" *ngIf="registerFail">
+        Invalid username or email
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <a [routerLink]="'/auth/signin'" class="signup">SignIn</a>
+    </div>
+  </form>
+</div>

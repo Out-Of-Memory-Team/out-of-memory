@@ -1,0 +1,51 @@
+<div class="page-shell" *ngIf="deck">
+
+  <div class="card">
+    <div class="card-block">
+      <div class="card-title">
+        <b>{{deck.title}}</b>
+        <button *ngIf="!currentCard && !finished"  type="button" class="btn btn-link margin-left-small" aria-label="learnDeck" (click)="start()">
+          <span>Start</span>
+        </button>
+      </div>
+      <div class="card-title">
+        {{minutes | number: '2.0'}}:{{seconds | number: '2.0'}} / {{learnRate}}%
+      </div>
+    </div>
+  </div>
+
+  <div class="progress">
+    <progress max="{{counterMax}}" value="{{counter}}"></progress>
+  </div>
+
+  <div *ngIf="currentCard" class="padding-minimal">
+    <div>
+      <div class="clr-col">
+        <div>
+          <quill-editor [format]="'json'" [readOnly]="true" [modules]="{ toolbar: false }" [styles]="{ height: '250px' }" [sanitize]="true" [ngModel]="currentCard.front" class="margin-right-small"></quill-editor>
+        </div>
+      </div>
+      <div class="clr-col" *ngIf="solutionOpen">
+        <div>
+          <quill-editor [format]="'json'" [readOnly]="true" [modules]="{ toolbar: false }" [styles]="{ height: '250px' }" [sanitize]="true" [ngModel]="currentCard.back" class="margin-right-small"></quill-editor>
+        </div>
+      </div>
+      <button *ngIf="!solutionOpen" type="button" class="btn flex-center" aria-label="open" (click)="openAnswer()">
+        <span>Show Answer</span>
+      </button>
+      <button *ngIf="solutionOpen" type="button" class="btn btn-success clr-align-items-center" aria-label="close" (click)="done()">
+        <span>Done</span>
+      </button>
+      <button *ngIf="solutionOpen" type="button" class="btn btn-danger" aria-label="close" (click)="again()">
+        <span>Again</span>
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="finished">
+    <h1>
+      Congratulations! You did it 🎉
+    </h1>
+  </div>
+
+</div>

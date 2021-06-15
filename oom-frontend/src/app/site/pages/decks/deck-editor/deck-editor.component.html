@@ -1,0 +1,60 @@
+<div class="page-shell" *ngIf="deck">
+
+  <div class="card">
+    <div class="card-block">
+      <div class="card-title">
+        General
+      </div>
+      <div class="card-text">
+        <form clrForm clrLayout="vertical" class="no-padding">
+          <clr-input-container class="no-top-margin">
+            <label>Title</label>
+            <input clrInput placeholder="Enter title..." [(ngModel)]="deck.title" name="title" required />
+            <clr-control-helper>Short title to identify your deck.</clr-control-helper>
+            <clr-control-error>This field is required!</clr-control-error>
+          </clr-input-container>
+          <clr-textarea-container>
+            <label>Description</label>
+            <textarea clrTextarea placeholder="Enter description..." [(ngModel)]="deck.description" name="description" required></textarea>
+            <clr-control-helper>More in depth explanation about your deck.</clr-control-helper>
+            <clr-control-error>This field is required!</clr-control-error>
+          </clr-textarea-container>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-block">
+      <div class="card-title">
+        Community
+      </div>
+      <div class="card-text">
+        <div class="clr-row padding-bottom-small">
+          <div class="clr-col-12">
+            <span class="p4">Tags</span><br>
+            <tag-editor [(tags)]="deck.tags"></tag-editor>
+          </div>
+        </div>
+        <div class="clr-row">
+          <div class="clr-col-3">
+            <span class="p4">Maintainer</span><br>
+            <maintainer-editor [(user)]="deck.maintainer"></maintainer-editor>
+          </div>
+          <div class="clr-col-9">
+            <span class="p4">Collaborators</span><br>
+            <collaborator-editor [(collaborators)]="deck.collaborators"></collaborator-editor>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-block">
+      <button class="btn btn-danger-outline" (click)="discardChanges()">Discard</button>
+      <button class="btn btn-primary" (click)="saveChanges()">Save</button>
+    </div>
+  </div>
+
+</div>

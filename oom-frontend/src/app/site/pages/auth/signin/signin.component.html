@@ -1,0 +1,24 @@
+<div class="login-wrapper">
+  <form class="login" (submit)="submit()">
+    <section class="title">
+      <h3 class="welcome">Welcome to</h3>
+      Out of Memory
+      <h5 class="hint">Use an existing account to sign in or create one now</h5>
+    </section>
+    <div class="login-group">
+      <clr-input-container>
+        <label class="clr-sr-only">Username</label>
+        <input type="text" name="username" clrInput placeholder="Username" [(ngModel)]="form.username"/>
+      </clr-input-container>
+      <clr-password-container>
+        <label class="clr-sr-only">Password</label>
+        <input type="password" name="password" clrPassword placeholder="Password" [(ngModel)]="form.password"/>
+      </clr-password-container>
+      <div class="error active" *ngIf="loginFail">
+        Invalid user name or password
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <a [routerLink]="'/auth/signup'" class="signup">Register</a>
+    </div>
+  </form>
+</div>
