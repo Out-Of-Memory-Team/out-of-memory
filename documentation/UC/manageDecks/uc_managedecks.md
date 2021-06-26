@@ -70,5 +70,7 @@ After the user saved his edits, the updated data will be displayed in the view p
 After confirming the deletion modal, the deck will be permanently removed and no longer displayed in the list overview.
 
 ## 6. Function Points
-
 ![add](img/FP_ManageDecks.PNG)
+
+## 7. Feature File
+[Feature File](../../../cucumber/src/test/resources/features/manageDeck.feature)
