@@ -1,4 +1,4 @@
-# out-of-memory
+# Use-Case Specification: Deck Management | Version 1.2
 ## Use-Case Specification: Deck management
 
 ## 1. Use-Case: Manage decks
@@ -70,3 +70,5 @@ After the user saved his edits, the updated data will be displayed in the view p
 After confirming the deletion modal, the deck will be permanently removed and no longer displayed in the list overview.
 
 ## 6. Function Points
+
+![add](img/FP_ManageDecks.PNG)
