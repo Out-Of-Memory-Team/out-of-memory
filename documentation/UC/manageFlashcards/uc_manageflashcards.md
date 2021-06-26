@@ -50,3 +50,6 @@ After confirming the deletion modal, the flashcard will be permanently removed a
 ## 6. Function Points
 
 ![add](img/FP_ManageFlashcards.PNG)
+
+## 7. Feature File
+[Feature File](../../../cucumber/src/test/resources/features/manageFlashcard.feature)

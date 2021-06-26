@@ -72,3 +72,7 @@ After confirming the deletion modal, the deck will be permanently removed and no
 ## 6. Function Points
 
 ![add](img/FP_ManageDecks.PNG)
+
+## 7. Feature File
+
+[Feature File](../../../cucumber/src/test/resources/features/manageDeck.feature)
